@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>সমাসঃ — শিখন-শিক্ষণ মডিউল (TLM)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ===================== ROOT & RESET ===================== */
+    :root {
+      --saffron:       #FF6B00;
+      --saffron-light: #FF9A3C;
+      --gold:          #E8A900;
+      --gold-light:    #FFD966;
+      --deep-red:      #8B0000;
+      --maroon:        #6B1A1A;
+      --cream:         #FFF8EE;
+      --cream2:        #FFF3DC;
+      --bg:            #FEF6E8;
+      --white:         #FFFFFF;
+      --text-dark:     #2C1A0E;
+      --text-mid:      #5C3317;
+      --text-light:    #8B5E3C;
+      --green:         #1A6B3A;
+      --green-light:   #E8F5EE;
+      --blue-dark:     #1A3A6B;
+      --blue-light:    #E8F0FF;
+      --purple:        #5C1A8B;
+      --purple-light:  #F0E8FF;
+      --teal:          #1A6B6B;
+      --teal-light:    #E8F5F5;
+      --shadow:        0 4px 20px rgba(139,69,19,0.15);
+      --shadow-hover:  0 8px 32px rgba(139,69,19,0.25);
+      --radius:        14px;
+      --radius-sm:     8px;
+      --transition:    all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Sans Devanagari', 'Tiro Devanagari Sanskrit', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--saffron); border-radius: 4px; }
+
+    /* ===================== HERO / HEADER ===================== */
+    .hero {
+      background: linear-gradient(135deg, #8B0000 0%, #C0392B 30%, #FF6B00 65%, #E8A900 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "ॐ";
+      position: absolute; top: -30px; left: -20px;
+      font-size: 280px; opacity: 0.05; color: #fff;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      pointer-events: none; user-select: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 40px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 30px;
+      padding: 6px 20px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.3);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      opacity: 0.92;
+      margin-bottom: 10px;
+      font-family: 'Noto Serif Devanagari', serif;
+    }
+    .hero-tagline {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      margin-bottom: 36px;
+      font-style: italic;
+    }
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-bottom: 36px;
+    }
+    .hero-chip {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.83rem;
+      backdrop-filter: blur(3px);
+    }
+    .hero-scroll-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff;
+      color: var(--deep-red);
+      border: none; border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .hero-scroll-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+
+    /* ===================== PROGRESS BAR ===================== */
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 4px; width: 0%;
+      background: linear-gradient(90deg, var(--saffron), var(--gold));
+      z-index: 9999;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px var(--saffron);
+    }
+
+    /* ===================== STICKY NAV ===================== */
+    .top-nav {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(255,248,238,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold-light);
+      display: flex; align-items: center; gap: 6px;
+      padding: 0 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      box-shadow: 0 2px 16px rgba(139,69,19,0.1);
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+    .nav-logo {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.4rem; color: var(--deep-red);
+      font-weight: 700; white-space: nowrap;
+      padding: 10px 12px 10px 0;
+      border-right: 2px solid var(--gold-light);
+      margin-right: 6px;
+    }
+    .nav-btn {
+      background: none; border: none;
+      padding: 10px 14px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.88rem; color: var(--text-mid);
+      cursor: pointer; white-space: nowrap;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-btn::after {
+      content: ''; position: absolute;
+      bottom: 6px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 2px;
+      background: var(--saffron);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--saffron); background: rgba(255,107,0,0.08);
+    }
+    .nav-btn.active::after { width: 60%; }
+
+    /* ===================== MAIN LAYOUT ===================== */
+    .main-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ===================== SECTION ===================== */
+    .section {
+      margin-bottom: 60px;
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+    }
+    .section-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    .section-title {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      color: var(--deep-red);
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 0.85rem; color: var(--text-light);
+      margin-top: 3px;
+    }
+
+    /* ===================== CARDS ===================== */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(232,169,0,0.2);
+      transition: var(--transition);
+      margin-bottom: 20px;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .card-title {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.2rem; color: var(--deep-red);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ===================== GRID ===================== */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; }
+
+    /* ===================== SAMAS TYPE CARDS ===================== */
+    .samas-card {
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .samas-card::before {
+      content: ''; position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px; border-radius: 50%;
+      opacity: 0.12;
+    }
+    .samas-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-hover); }
+    .samas-card .num {
+      font-size: 2.2rem; font-weight: 700;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      opacity: 0.2; position: absolute; top: 12px; right: 16px;
+    }
+    .samas-card .tag {
+      display: inline-block; border-radius: 20px;
+      padding: 3px 12px; font-size: 0.75rem;
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .samas-card h3 {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.25rem; margin-bottom: 8px;
+    }
+    .samas-card p { font-size: 0.88rem; line-height: 1.6; opacity: 0.85; }
+    .samas-card .example-pill {
+      display: inline-block; margin-top: 12px;
+      background: rgba(255,255,255,0.45);
+      border-radius: 20px; padding: 4px 14px;
+      font-size: 0.85rem; font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Colors per samas */
+    .c-avyayi  { background: linear-gradient(135deg,#1A6B3A,#27AE60); color:#fff; }
+    .c-avyayi::before { background: #fff; }
+    .c-tatpu   { background: linear-gradient(135deg,#1A3A6B,#2980B9); color:#fff; }
+    .c-tatpu::before  { background: #fff; }
+    .c-dvandva { background: linear-gradient(135deg,#5C1A8B,#8E44AD); color:#fff; }
+    .c-dvandva::before{ background: #fff; }
+    .c-bahu    { background: linear-gradient(135deg,#8B0000,#C0392B); color:#fff; }
+    .c-bahu::before   { background: #fff; }
+
+    /* ===================== TABS ===================== */
+    .tabs { margin-bottom: 28px; }
+    .tab-bar {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: var(--cream2); border: 1px solid var(--gold-light);
+      border-radius: 30px; padding: 8px 18px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.88rem; color: var(--text-mid);
+      cursor: pointer; transition: var(--transition);
+    }
+    .tab-btn:hover { background: var(--gold-light); }
+    .tab-btn.active {
+      background: var(--saffron); color: #fff;
+      border-color: var(--saffron);
+      box-shadow: 0 3px 12px rgba(255,107,0,0.35);
+    }
+    .tab-panel { display: none; animation: fadeUp 0.35s ease; }
+    .tab-panel.active { display: block; }
+
+    /* ===================== TABLE ===================== */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.92rem; background: var(--white);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    thead tr { background: linear-gradient(90deg,var(--deep-red),var(--maroon)); color: #fff; }
+    thead th { padding: 13px 16px; text-align: left; font-weight: 600; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid rgba(232,169,0,0.18); transition: background 0.2s; }
+    tbody tr:hover { background: var(--cream); }
+    tbody td { padding: 11px 16px; vertical-align: top; line-height: 1.55; }
+    tbody tr:last-child { border-bottom: none; }
+    .hl { color: var(--saffron); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-blue  { color: var(--blue-dark); font-weight: 700; }
+
+    /* Striped */
+    tbody tr:nth-child(even) { background: rgba(255,248,238,0.6); }
+    tbody tr:nth-child(even):hover { background: var(--cream); }
+
+    /* ===================== CALLOUT BOX ===================== */
+    .callout {
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin: 18px 0;
+      border-left: 4px solid;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+    .callout-saffron { background: #FFF4E6; border-color: var(--saffron); }
+    .callout-green   { background: var(--green-light); border-color: var(--green); }
+    .callout-blue    { background: var(--blue-light);  border-color: var(--blue-dark); }
+    .callout-purple  { background: var(--purple-light);border-color: var(--purple); }
+    .callout-red     { background: #FFE8E8; border-color: var(--deep-red); }
+    .callout strong  { display: block; margin-bottom: 5px; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ===================== FORMULA BOX ===================== */
+    .formula-box {
+      background: linear-gradient(135deg, #1A1A2E, #16213E);
+      color: #FFD966;
+      border-radius: var(--radius-sm);
+      padding: 16px 22px;
+      margin: 18px 0;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.05rem;
+      text-align: center;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+
+    /* ===================== SHLOKA BOX ===================== */
+    .shloka-box {
+      background: linear-gradient(135deg, var(--deep-red), var(--maroon));
+      color: var(--gold-light);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      text-align: center;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      letter-spacing: 0.3px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .shloka-box::before {
+      content: '"'; font-size: 8rem; position: absolute;
+      top: -20px; left: 10px; opacity: 0.07; color: #fff;
+      font-family: Georgia, serif; line-height: 1;
+    }
+    .shloka-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px; padding: 3px 14px;
+      font-size: 0.78rem; margin-bottom: 12px;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* ===================== QUIZ / INTERACTIVE ===================== */
+    .quiz-section { margin-top: 30px; }
+    .quiz-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(232,169,0,0.2);
+      margin-bottom: 18px;
+    }
+    .quiz-q {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 1rem; color: var(--text-dark);
+      margin-bottom: 16px; font-weight: 600;
+      line-height: 1.6;
+    }
+    .quiz-q span { color: var(--saffron); }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn {
+      background: var(--cream);
+      border: 2px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      text-align: left;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.92rem; color: var(--text-dark);
+      cursor: pointer; transition: var(--transition);
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--saffron); background: #FFF4E6; }
+    .option-btn.correct  { background: #E8F5EE; border-color: var(--green);   color: var(--green);    font-weight: 700; }
+    .option-btn.wrong    { background: #FFE8E8; border-color: var(--deep-red); color: var(--deep-red); font-weight: 700; }
+    .option-btn:disabled { cursor: not-allowed; }
+    .quiz-feedback {
+      margin-top: 12px; padding: 10px 16px;
+      border-radius: var(--radius-sm); font-size: 0.9rem;
+      display: none;
+    }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct { background: var(--green-light); color: var(--green); }
+    .quiz-feedback.wrong   { background: #FFE8E8;            color: var(--deep-red); }
+    .quiz-score-bar {
+      background: var(--cream2); border-radius: var(--radius);
+      padding: 16px 22px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .score-track {
+      flex: 1; height: 10px; background: #E0D8CF;
+      border-radius: 5px; overflow: hidden;
+    }
+    .score-fill {
+      height: 100%; background: linear-gradient(90deg,var(--saffron),var(--gold));
+      border-radius: 5px; transition: width 0.5s ease;
+      width: 0%;
+    }
+    .score-label { font-weight: 700; color: var(--saffron); white-space: nowrap; font-size: 0.95rem; }
+
+    /* ===================== FILL-IN-THE-BLANK ===================== */
+    .fill-input {
+      border: 2px solid var(--gold-light);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.95rem; color: var(--text-dark);
+      background: var(--cream); outline: none;
+      width: 100%; margin: 8px 0;
+      transition: border-color 0.2s;
+    }
+    .fill-input:focus { border-color: var(--saffron); background: var(--white); }
+    .fill-input.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+    .fill-input.wrong   { border-color: var(--deep-red); background: #FFE8E8; }
+    .check-btn {
+      background: var(--saffron); color: #fff; border: none;
+      border-radius: var(--radius-sm); padding: 10px 22px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.9rem; cursor: pointer; font-weight: 600;
+      transition: var(--transition); margin-top: 8px;
+    }
+    .check-btn:hover { background: var(--deep-red); transform: scale(1.03); }
+    .reset-btn {
+      background: none; border: 2px solid var(--gold);
+      color: var(--text-mid); border-radius: var(--radius-sm);
+      padding: 9px 20px; margin-left: 10px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.9rem; cursor: pointer;
+      transition: var(--transition);
+    }
+    .reset-btn:hover { background: var(--gold-light); }
+
+    /* ===================== FLIP CARDS (VIGRAHA) ===================== */
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; }
+    .flip-card { perspective: 800px; height: 130px; cursor: pointer; }
+    .flip-inner {
+      width: 100%; height: 100%; position: relative;
+      transform-style: preserve-3d; transition: transform 0.55s ease;
+      border-radius: var(--radius);
+    }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden; border-radius: var(--radius);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 14px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .flip-front {
+      background: linear-gradient(135deg,var(--maroon),var(--deep-red));
+      color: var(--gold-light);
+    }
+    .flip-front .word { font-family:'Tiro Devanagari Sanskrit',serif; font-size:1.3rem; font-weight:700; }
+    .flip-front .hint { font-size:0.72rem; opacity:0.65; margin-top:6px; }
+    .flip-back {
+      background: var(--white);
+      color: var(--text-dark);
+      transform: rotateY(180deg);
+      border: 2px solid var(--gold-light);
+    }
+    .flip-back .vigraha { font-family:'Noto Serif Devanagari',serif; font-size:0.88rem; line-height:1.5; }
+    .flip-back .type-tag {
+      background: var(--saffron); color: #fff;
+      border-radius: 20px; padding: 2px 12px;
+      font-size: 0.72rem; margin-bottom: 6px;
+    }
+
+    /* ===================== ACCORDION ===================== */
+    .accordion { margin-bottom: 10px; }
+    .acc-header {
+      background: var(--white); border: 1px solid rgba(232,169,0,0.3);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; transition: var(--transition);
+      font-weight: 600; color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+    .acc-header:hover { background: var(--cream); border-color: var(--gold); }
+    .acc-header.open { background: var(--cream2); border-color: var(--saffron); color: var(--deep-red); }
+    .acc-arrow { font-size: 1rem; transition: transform 0.3s; }
+    .acc-header.open .acc-arrow { transform: rotate(180deg); }
+    .acc-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      background: var(--cream);
+      border: 1px solid rgba(232,169,0,0.2);
+      border-top: none;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    }
+    .acc-body.open { max-height: 1000px; }
+    .acc-body-inner { padding: 18px 20px; font-size: 0.92rem; line-height: 1.7; }
+
+    /* ===================== COMPARISON TABLE ===================== */
+    .comp-table thead tr { background: linear-gradient(90deg,#2C1A0E,#5C3317); }
+
+    /* ===================== TREE DIAGRAM ===================== */
+    .tree {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+      font-family: 'Noto Sans Devanagari', sans-serif;
+    }
+    .tree-root {
+      text-align: center; margin-bottom: 28px;
+    }
+    .tree-node {
+      display: inline-block; padding: 10px 22px;
+      border-radius: 30px; font-weight: 700; font-size: 1.05rem;
+    }
+    .tree-root .tree-node { background: linear-gradient(135deg,var(--deep-red),var(--saffron)); color:#fff; font-size:1.25rem; padding:12px 32px; }
+    .tree-branches { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; position: relative; }
+    .tree-branch {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .tree-branch .branch-node {
+      padding: 8px 18px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;
+    }
+    .tree-branch .leaves { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+    .tree-leaf {
+      padding: 5px 14px; border-radius: 12px;
+      font-size: 0.8rem; background: var(--cream2); color: var(--text-mid);
+      border: 1px solid var(--gold-light);
+    }
+    .b1 { background: #E8F5EE; color: var(--green); border: 2px solid var(--green); }
+    .b2 { background: var(--blue-light); color: var(--blue-dark); border: 2px solid var(--blue-dark); }
+    .b3 { background: var(--purple-light); color: var(--purple); border: 2px solid var(--purple); }
+    .b4 { background: #FFE8E8; color: var(--deep-red); border: 2px solid var(--deep-red); }
+
+    /* ===================== OBJECTIVE TABLE ===================== */
+    .obj-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 14px;
+    }
+    .obj-item {
+      background: var(--white); border-radius: var(--radius-sm);
+      padding: 14px 16px; border-left: 4px solid var(--saffron);
+      box-shadow: 0 2px 10px rgba(139,69,19,0.08);
+      font-size: 0.9rem; line-height: 1.55;
+    }
+
+    /* ===================== VIGRAHA BUILDER ===================== */
+    .builder-area {
+      background: var(--white); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow);
+    }
+    .builder-label { font-weight: 600; color: var(--text-mid); margin-bottom: 10px; font-size: 0.88rem; }
+    .word-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; min-height: 44px; }
+    .wchip {
+      background: var(--cream2); border: 2px solid var(--gold-light);
+      border-radius: 20px; padding: 6px 16px;
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 0.9rem; cursor: pointer;
+      transition: var(--transition); user-select: none;
+    }
+    .wchip:hover { background: var(--gold-light); border-color: var(--gold); transform: scale(1.05); }
+    .wchip.selected { background: var(--saffron); color: #fff; border-color: var(--saffron); }
+    .builder-result {
+      background: var(--cream); border-radius: var(--radius-sm);
+      padding: 14px 18px; min-height: 50px;
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 1.15rem; color: var(--deep-red);
+      border: 2px dashed var(--gold-light);
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+
+    /* ===================== PROGRESS TRACKER ===================== */
+    .tracker {
+      background: var(--white); border-radius: var(--radius);
+      padding: 22px 24px; box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+    .tracker h3 { font-family:'Tiro Devanagari Sanskrit',serif; color:var(--deep-red); margin-bottom:16px; }
+    .tracker-items { display: flex; flex-wrap: wrap; gap: 10px; }
+    .t-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--cream2); border-radius: 20px;
+      padding: 6px 14px; font-size: 0.85rem;
+      cursor: pointer; transition: var(--transition);
+      border: 2px solid transparent;
+    }
+    .t-item.done { background: var(--green-light); border-color: var(--green); color: var(--green); }
+    .t-item .t-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+    .t-item.done .t-dot { background: var(--green); }
+
+    /* ===================== BADGE ===================== */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+    }
+    .badge-saffron { background: #FFF0DD; color: var(--saffron); border: 1px solid #FFD099; }
+    .badge-green   { background: var(--green-light); color: var(--green); border: 1px solid #A8DBC0; }
+    .badge-blue    { background: var(--blue-light); color: var(--blue-dark); border: 1px solid #A8C4E8; }
+    .badge-red     { background: #FFE8E8; color: var(--deep-red); border: 1px solid #F0A8A8; }
+    .badge-purple  { background: var(--purple-light); color: var(--purple); border: 1px solid #C4A8E8; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: linear-gradient(135deg,var(--deep-red),var(--maroon));
+      color: rgba(255,255,255,0.85);
+      text-align: center; padding: 36px 20px;
+    }
+    footer .footer-om {
+      font-family: 'Tiro Devanagari Sanskrit', serif;
+      font-size: 3rem; color: var(--gold-light); display: block; margin-bottom: 10px;
+    }
+    footer p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 16px 60px; }
+      .main-wrapper { padding: 24px 14px 60px; }
+      .card { padding: 18px 16px; }
+      table { font-size: 0.82rem; }
+      thead th, tbody td { padding: 9px 10px; }
+    }
+
+    /* ===================== ANIMATE ON SCROLL ===================== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===================== BACK TO TOP ===================== */
+    #back-top {
+      position: fixed; bottom: 28px; right: 24px;
+      background: var(--saffron); color: #fff;
+      border: none; border-radius: 50%;
+      width: 48px; height: 48px; font-size: 1.3rem;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(255,107,0,0.4);
+      transition: var(--transition); display: none; align-items: center; justify-content: center;
+      z-index: 800;
+    }
+    #back-top.show { display: flex; }
+    #back-top:hover { background: var(--deep-red); transform: scale(1.1); }
+
+    /* ===================== TOOLTIP ===================== */
+    [data-tip] { position: relative; cursor: help; border-bottom: 1px dotted var(--saffron); }
+    [data-tip]::after {
+      content: attr(data-tip);
+      position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: var(--text-dark); color: #fff;
+      padding: 6px 12px; border-radius: 8px; font-size: 0.78rem;
+      white-space: nowrap; pointer-events: none; opacity: 0;
+      transition: opacity 0.2s; z-index: 100;
+    }
+    [data-tip]:hover::after { opacity: 1; }
+
+    /* Print */
+    @media print {
+      .top-nav, #back-top, #progress-bar, .quiz-section, .flip-card { display: none !important; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Back to Top -->
+<button id="back-top" title="ऊपर जायें" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero" id="top">
+  <div class="hero-badge">📚 সংস্কৃত-ব্যাকরণম্</div>
+  <h1>समासः</h1>
+  <div class="hero-sub">শিখন-শিক্ষণ মডিউল (TLM)</div>
+  <div class="hero-tagline">"सम्यक् आसः इति समासः" — Teaching &amp; Learning Module</div>
+
+  <div class="practicum-card" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 15px 20px; margin: 20px auto; max-width: 650px; backdrop-filter: blur(8px); text-align: left; color: #fff;">
+    <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-light); font-weight: 700; margin-bottom: 8px; text-align: center;">🎓 B.Ed Practicum TLM Submission</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 0.92rem;">
+      <div><strong>Trainee Teacher:</strong> Pintu Chowdhury</div>
+      <div><strong>College Roll No:</strong> 40</div>
+      <div><strong>University Roll No:</strong> 030322-24047</div>
+      <div><strong>Registration No:</strong> 24-03032-072</div>
+      <div style="grid-column: 1 / -1; margin-top: 5px;"><strong>Institution:</strong> Sree Ramkrishna College of Education</div>
+      <div style="grid-column: 1 / -1;"><strong>Course:</strong> EPC 3 | <strong>Semester:</strong> 4th | <strong>Subject:</strong> Sanskrit</div>
+    </div>
+  </div>
+
+  <div class="hero-chips">
+    <span class="hero-chip">📖 ৫টি পাঠ</span>
+    <span class="hero-chip">🎯 সমাসের প্রকারভেদ</span>
+    <span class="hero-chip">✍️ অনুশীলন</span>
+    <span class="hero-chip">🧩 কুইজ</span>
+    <span class="hero-chip">📊 মূল্যায়ন</span>
+  </div>
+  <a href="#intro" class="hero-scroll-btn">পাঠ শুরু করুন ↓</a>
+</header>
+
+<!-- ============================================================
+     STICKY NAV
+     ============================================================ -->
+<nav class="top-nav">
+  <div class="nav-logo">समासः</div>
+  <button class="nav-btn" onclick="scrollTo('#intro')">পরিচয়</button>
+  <button class="nav-btn" onclick="scrollTo('#tree-section')">প্রকারভেদ</button>
+  <button class="nav-btn" onclick="scrollTo('#avyayi')">অব্যয়ীভাব</button>
+  <button class="nav-btn" onclick="scrollTo('#tatpu')">তৎপুরুষ</button>
+  <button class="nav-btn" onclick="scrollTo('#dvandva')">দ্বন্দ্ব</button>
+  <button class="nav-btn" onclick="scrollTo('#bahu')">বহুব্রীহি</button>
+  <button class="nav-btn" onclick="scrollTo('#flashcards')">ফ্ল্যাশ কার্ড</button>
+  <button class="nav-btn" onclick="scrollTo('#quiz')">অনুশীলন</button>
+  <button class="nav-btn" onclick="scrollTo('#comparison')">তুলনা</button>
+  <button class="nav-btn" onclick="scrollTo('#mulyankan')">মূল্যায়ন</button>
+</nav>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<main class="main-wrapper">
+
+  <!-- ─── PROGRESS TRACKER ─── -->
+  <div class="tracker reveal" id="tracker-box">
+    <h3>📋 পাঠের অগ্রগতি (Learning Progress)</h3>
+    <div class="tracker-items" id="tracker-items">
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> পরিচয়</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> অব্যয়ীভাব</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> তৎপুরুষ</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> কর্মধারয়</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> দ্বিগু</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> দ্বন্দ্ব</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> বহুব্রীহি</div>
+      <div class="t-item" onclick="markDone(this)"><div class="t-dot"></div> কুইজ</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 1 — PARICHAY
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="intro">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#FF6B00,#E8A900);">📖</div>
+      <div>
+        <div class="section-title">পাঠ ১ — সমাসের পরিচয়</div>
+        <div class="section-subtitle">Introduction to Samāsa</div>
+      </div>
+    </div>
+
+    <div class="shloka-box reveal" style="margin-bottom:24px;">
+      <div class="shloka-label">॥ সংজ্ঞা ॥</div>
+      <div>"समसनम् — अनेकेषां पदानाम् एकपदीभवनं समासः"</div>
+      <div style="font-size:0.82rem;opacity:0.75;margin-top:10px;font-family:'Noto Sans Bengali',sans-serif;">
+        যখন বিভক্তি লোপ পেয়ে একাধিক পদ মিলিত হয়ে এক পদে পরিণত হয়, তখন তাকে সমাস বলে।
+      </div>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-title">🔤 ব্যুৎপত্তি</div>
+        <p style="line-height:1.7;font-size:0.93rem; font-family:'Noto Sans Bengali',sans-serif;">
+          <strong>सम् + अस् (क्षेपे) + घञ् = समासः</strong><br><br>
+          "সম্যক্ আসঃ" অর্থাৎ "সম্যক্ সংযোজনম্" বা সম্যক্ ভাবে মিলন। যখন একাধিক পদ নিজেদের বিভক্তি এবং সংযোজক অব্যয় ('চ' ইত্যাদি) ত্যাগ করে পরস্পর মিলিত হয়ে <strong>একটি পদে পরিণত হয়</strong>, তখন সেই প্রক্রিয়াকে <strong class="hl">সমাস</strong> বলা হয়।
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 প্রয়োজনীয়তা</div>
+        <ul style="line-height:1.85;font-size:0.92rem;padding-left:16px; font-family:'Noto Sans Bengali',sans-serif;">
+          <li><strong>সংক্ষেপণ</strong> — অনেক পদকে এক পদে পরিণত করা।</li>
+          <li><strong>সৌন্দর্য</strong> — বাক্যে ও কাব্যে মাধুর্য সৃষ্টি করা।</li>
+          <li><strong>শক্তি</strong> — অল্প অক্ষরে গভীর অর্থ প্রকাশ করা।</li>
+          <li><strong>প্রবাহ</strong> — ভাষার গতিশীলতা বৃদ্ধি করা।</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Samasta-pada table -->
+    <div class="card reveal">
+      <div class="card-title">📌 সমাসের অঙ্গসমূহ</div>
+      <div class="table-wrap">
+        <table style="font-family:'Noto Sans Bengali',sans-serif;">
+          <thead><tr><th>পদ</th><th>পরিভাষা</th><th>উদাহরণ (राजपुरुषः)</th></tr></thead>
+          <tbody>
+            <tr><td><span class="hl">পূর্বপদ (पूर्वपद)</span></td><td>সমস্তপদের প্রথম পদ</td><td>राज</td></tr>
+            <tr><td><span class="hl">উত্তরপদ (उत्तरपद)</span></td><td>সমস্তপদের অন্তিম পদ</td><td>पुरुष</td></tr>
+            <tr><td><span class="hl">সমস্তপদ (समस्तपद)</span></td><td>সমাসের ফলে গঠিত নতুন পদ</td><td>राजपुरुषः</td></tr>
+            <tr><td><span class="hl">বিগ্রহবাক্য (विग्रह)</span></td><td>সমস্তপদের অর্থ ব্যাখ্যামূলক বাক্য</td><td>राज्ञः पुरुषः</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Objectives -->
+    <div class="card reveal">
+      <div class="card-title">✅ শিক্ষণ-উদ্দেশ্যাবলি (Learning Objectives)</div>
+      <div class="obj-grid" style="font-family:'Noto Sans Bengali',sans-serif;">
+        <div class="obj-item">সমাস শব্দের ব্যুৎপত্তি বলতে পারবেন।</div>
+        <div class="obj-item">সমস্তপদ ও বিগ্রহবাক্য আলাদা করতে পারবেন।</div>
+        <div class="obj-item">সমাসের প্রধান ৫টি প্রকারভেদ উল্লেখ করতে পারবেন।</div>
+        <div class="obj-item">প্রতিটি সমাসের লক্ষণ ও উদাহরণ জানতে পারবেন।</div>
+        <div class="obj-item">নিজে নতুন সমস্তপদ গঠন করতে পারবেন।</div>
+        <div class="obj-item">গদ্য ও কাব্যে সমাসের প্রয়োগ চিহ্নিত করতে পারবেন।</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 2 — TREE / BHED
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="tree-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1A3A6B,#2980B9);">🌿</div>
+      <div>
+        <div class="section-title">পাঠ ২ — সমাসের প্রকারভেদ</div>
+        <div class="section-subtitle">Types of Samāsa — Overview</div>
+      </div>
+    </div>
+
+    <!-- Tree Diagram -->
+    <div class="tree reveal" style="margin-bottom:24px;">
+      <div class="tree-root"><div class="tree-node">समासः</div></div>
+      <div class="tree-branches">
+        <div class="tree-branch">
+          <div class="branch-node" style="background:#FFF4E6; color:var(--saffron); border:2px solid var(--saffron);">① केवलसमासः</div>
+          <div class="leaves">
+            <div class="tree-leaf">विशेषसंज्ञाविनिर्मुक्तः</div>
+            <div class="tree-leaf">भूतपूर्वः</div>
+          </div>
+        </div>
+        <div class="tree-branch">
+          <div class="branch-node b1">② अव्ययीभावः</div>
+          <div class="leaves">
+            <div class="tree-leaf">पूर्वपद प्रधान</div>
+            <div class="tree-leaf">उपगङ्गम्</div>
+          </div>
+        </div>
+        <div class="tree-branch">
+          <div class="branch-node b2">③ तत्पुरुषः</div>
+          <div class="leaves">
+            <div class="tree-leaf">उत्तरपद प्रधान</div>
+            <div class="tree-leaf">कर्मधारयः</div>
+            <div class="tree-leaf">द्विगुः</div>
+            <div class="tree-leaf">नञ्समासः</div>
+          </div>
+        </div>
+        <div class="tree-branch">
+          <div class="branch-node b3">④ द्वन्द्वः</div>
+          <div class="leaves">
+            <div class="tree-leaf">उभयपद प्रधान</div>
+            <div class="tree-leaf">इतरेतरः</div>
+            <div class="tree-leaf">समाहारः</div>
+          </div>
+        </div>
+        <div class="tree-branch">
+          <div class="branch-node b4">⑤ बहुव्रीहिः</div>
+          <div class="leaves">
+            <div class="tree-leaf">अन्यपद प्रधान</div>
+            <div class="tree-leaf">दशाननः</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Overview Cards -->
+    <div class="grid-2 reveal">
+      <div class="samas-card" style="background: linear-gradient(135deg, #FF6B00, #E8A900); color: #fff;" onclick="scrollTo('#kevala')">
+        <div class="num">१</div>
+        <div class="tag" style="background:rgba(255,255,255,0.3);color:#fff;">विशेषसंज्ञाविनिर्मुक्तः</div>
+        <h3>केवलसमासः</h3>
+        <p style="font-family:'Noto Sans Bengali',sans-serif;">যে সমাসের কোনো বিশেষ নাম বা সংজ্ঞা নেই।</p>
+        <div class="example-pill">भूतपूर्वः → पूर्वं भूतः</div>
+      </div>
+      <div class="samas-card c-avyayi" onclick="scrollTo('#avyayi')">
+        <div class="num">२</div>
+        <div class="tag" style="background:rgba(255,255,255,0.3);color:#fff;">पूर्वपदप्रधानः</div>
+        <h3>अव्ययीभावसमासः</h3>
+        <p style="font-family:'Noto Sans Bengali',sans-serif;">যে সমাসে পূর্বপদ অব্যয় হয় এবং পূর্বপদের অর্থ প্রধান থাকে। সমস্তপদটি ক্লীবলিঙ্গ হয়।</p>
+        <div class="example-pill">उपगङ्गम् → गङ्गायाः समीपम्</div>
+      </div>
+      <div class="samas-card c-tatpu" onclick="scrollTo('#tatpu')">
+        <div class="num">३</div>
+        <div class="tag" style="background:rgba(255,255,255,0.3);color:#fff;">उत्तरपदप्रधानः</div>
+        <h3>तत्पुरुषसमासः</h3>
+        <p style="font-family:'Noto Sans Bengali',sans-serif;">যে সমাসে উত্তরপদের (পরপদ) অর্থ প্রধান হয়। বিভক্তি অনুযায়ী এর বিভাজন হয়।</p>
+        <div class="example-pill">राजपुरुषः → राज्ञः पुरुषः</div>
+      </div>
+      <div class="samas-card c-dvandva" onclick="scrollTo('#dvandva')">
+        <div class="num">४</div>
+        <div class="tag" style="background:rgba(255,255,255,0.3);color:#fff;">उभयपदप्रधानः</div>
+        <h3>द्वन्द्वसमासः</h3>
+        <p style="font-family:'Noto Sans Bengali',sans-serif;">যে সমাসে উভয় পদের অর্থই প্রধান হয়। বিগ্রহবাক্যে 'च' ব্যবহৃত হয়।</p>
+        <div class="example-pill">सीतारामौ → सीता च रामः च</div>
+      </div>
+      <div class="samas-card c-bahu" onclick="scrollTo('#bahu')">
+        <div class="num">५</div>
+        <div class="tag" style="background:rgba(255,255,255,0.3);color:#fff;">अन्यपदप्रधानः</div>
+        <h3>बहुव्रीहिसमासः</h3>
+        <p style="font-family:'Noto Sans Bengali',sans-serif;">যে সমাসে সমস্যমান পদগুলির অর্থ প্রধান না হয়ে তৃতীয় কোনো পদের অর্থ প্রধান হয়।</p>
+        <div class="example-pill">दशाननः → दश आनानि यस्य सः</div>
+      </div>
+    </div>
+
+    <div class="shloka-box reveal" style="margin-top:24px;">
+      <div class="shloka-label">॥ স্মরণ-শ্লোক ॥</div>
+      अव्ययीभावे पूर्वपदं, तत्पुरुषे उत्तरं स्मर।<br>
+      द्वन्द्वे उभयपदं ज्ञेयं, बहुव्रीहावन्यपद् वरम्॥
+      <div style="font-size:0.82rem;opacity:0.75;margin-top:10px;font-family:'Noto Sans Bengali',sans-serif;">
+        অব্যয়ীভাবে পূর্বপদ, তৎপুরুষে উত্তরপদ, দ্বন্দ্বে উভয়পদ এবং বহুব্রীহিতে অন্য পদের অর্থ প্রধান বলে জানবে।
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 3 — AVYAYIBHAV
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="avyayi">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1A6B3A,#27AE60);">🍃</div>
+      <div>
+        <div class="section-title">পাঠ ৩ — অব্যয়ীভাব সমাস</div>
+        <div class="section-subtitle">Avyayībhāva Samāsa</div>
+      </div>
+    </div>
+
+    <div class="formula-box reveal">"पूर्वपदप्रधानः अव्ययीभावः"</div>
+
+    <div class="grid-2 reveal">
+      <div class="card">
+        <div class="card-title">📌 সংজ্ঞা</div>
+        <p style="font-size:0.93rem;line-height:1.75; font-family:'Noto Sans Bengali',sans-serif;">
+          যে সমাসে <strong class="hl-green">পূর্বপদ অব্যয়</strong> হয় এবং পূর্বপদের অর্থই প্রধান থাকে,
+          এবং সমস্তপদটি <strong class="hl-green">ক্লীবলিঙ্গ একবচনে</strong> গঠিত হয় — তাকে অব্যয়ীভাব সমাস বলে।
+        </p>
+        <div class="callout callout-green" style="margin-top:14px; font-family:'Noto Sans Bengali',sans-serif;">
+          <strong>লক্ষণ</strong>
+          অব্যয় + সুবন্ত পদ → সমস্তপদ (অব্যয়ের মতো আচরণ করে)
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 প্রমুখ অব্যয়সমূহ</div>
+        <div class="table-wrap">
+          <table style="font-family:'Noto Sans Bengali',sans-serif;">
+            <thead><tr><th>অব্যয়</th><th>অর্থ</th></tr></thead>
+            <tbody>
+              <tr><td><span class="hl-green">उप</span></td><td>নিকটে</td></tr>
+              <tr><td><span class="hl-green">अधि</span></td><td>উপরে / বিষয়ে</td></tr>
+              <tr><td><span class="hl-green">अनु</span></td><td>পশ্চাতে / পরে</td></tr>
+              <tr><td><span class="hl-green">प्रति</span></td><td>প্রত্যেকটি</td></tr>
+              <tr><td><span class="hl-green">यथा</span></td><td>অনুসারে / মতো</td></tr>
+              <tr><td><span class="hl-green">निर्</span></td><td>অভাবে</td></tr>
+              <tr><td><span class="hl-green">सु</span></td><td>সমৃদ্ধি / সুন্দর</td></tr>
+              <tr><td><span class="hl-green">दुर्</span></td><td>অভাব / অসুন্দর</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-title">📊 উদাহরণ তালিকা</div>
+      <div class="table-wrap">
+        <table style="font-family:'Noto Sans Bengali',sans-serif;">
+          <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>অর্থ</th><th>অব্যয়</th></tr></thead>
+          <tbody>
+            <tr><td>गङ्गायाः समीपम्</td><td><span class="hl-green">उपगङ्गम्</span></td><td>গঙ্গার নিকটে</td><td>उप</td></tr>
+            <tr><td>नद्याः समीपम्</td><td><span class="hl-green">उपनदम्</span></td><td>নদীর নিকটে</td><td>उप</td></tr>
+            <tr><td>नगरस्य समीपम्</td><td><span class="hl-green">उपनगरम्</span></td><td>নগরের নিকটে</td><td>उप</td></tr>
+            <tr><td>हरौ इति</td><td><span class="hl-green">अधिहरि</span></td><td>হরির বিষয়ে</td><td>अधि</td></tr>
+            <tr><td>आत्मनि इति</td><td><span class="hl-green">अध्यात्म</span></td><td>আত্মার বিষয়ে</td><td>अधि</td></tr>
+            <tr><td>दिनम् दिनम्</td><td><span class="hl-green">प्रतिदिनम्</span></td><td>প্রত্যেক দিনে</td><td>प्रति</td></tr>
+            <tr><td>गृहं गृहम्</td><td><span class="hl-green">प्रतिगृहम्</span></td><td>প্রত্যেক গৃহে</td><td>प्रति</td></tr>
+            <tr><td>शक्तिम् अनतिक्रम्य</td><td><span class="hl-green">यथाशक्ति</span></td><td>শক্তি অনুসারে</td><td>यथा</td></tr>
+            <tr><td>विघ्नानाम् अभावः</td><td><span class="hl-green">निर्विघ्नम्</span></td><td>বিঘ্নের অভাবে</td><td>निर्</td></tr>
+            <tr><td>मक्षिकाणाम् अभावः</td><td><span class="hl-green">निर्मक्षिकम्</span></td><td>মাছির অভাবে</td><td>निर्</td></tr>
+            <tr><td>भिक्षाणां समृद्धिः</td><td><span class="hl-green">सुभिक्षम्</span></td><td>ভিক্ষার প্রাচুর্য</td><td>सु</td></tr>
+            <tr><td>भिक्षाणां व्यृद्धिः</td><td><span class="hl-green">दुर्भिक्षम्</span></td><td>ভিক্ষার অভাব (দুর্ভিক্ষ)</td><td>दुर्</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout callout-saffron reveal" style="font-family:'Noto Sans Bengali',sans-serif;">
+      <strong>⚠️ বিশেষ নিয়ম</strong>
+      অব্যয়ীভাব সমাস সর্বদা <strong>ক্লীবলিঙ্গ একবচনে</strong> হয়।
+      সমস্তপদটি একটি অব্যয় পদে পরিণত হয় — অর্থাৎ এর আর কোনো রূপ পরিবর্তন (বিভক্তি) হয় না।
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 4 — TATPURUSHA
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="tatpu">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1A3A6B,#2980B9);">📘</div>
+      <div>
+        <div class="section-title">পাঠ ৪ — তৎপুরুষ সমাস</div>
+        <div class="section-subtitle">Tatpuruṣa Samāsa &amp; Sub-types</div>
+      </div>
+    </div>
+
+    <div class="formula-box reveal">"उत्तरपदार्थप्रधानः तत्पुरुषः"</div>
+
+    <div class="callout callout-blue reveal" style="font-family:'Noto Sans Bengali',sans-serif;">
+      <strong>📌 সংজ্ঞা</strong>
+      যে সমাসে <strong>উত্তরপদের (পরপদের)</strong> অর্থ প্রধান হয়, তাকে তৎপুরুষ সমাস বলে।
+      এই সমাসে বিগ্রহবাক্যের দ্বিতীয়া থেকে সপ্তমী পর্যন্ত বিভক্তি লোপ পায়।
+      <br><br><strong>সূত্র</strong> — "परलिङ्गं तत्पुरुषे" — সমস্তপদের লিঙ্গ সর্বদা উত্তরপদ অনুযায়ী নির্ধারিত হয়।
+    </div>
+
+    <!-- Tabs for Tatpurusha -->
+    <div class="tabs reveal">
+      <div class="tab-bar" style="font-family:'Noto Sans Bengali',sans-serif;">
+        <button class="tab-btn active" onclick="switchTab('tatpu-tabs','tp-vibhakti',this)">বিভক্তি অনুযায়ী ভেদ</button>
+        <button class="tab-btn" onclick="switchTab('tatpu-tabs','tp-karma',this)">কর্মধারয়</button>
+        <button class="tab-btn" onclick="switchTab('tatpu-tabs','tp-dvigu',this)">দ্বিগু</button>
+        <button class="tab-btn" onclick="switchTab('tatpu-tabs','tp-nanj',this)">নঞ্ সমাস</button>
+      </div>
+
+      <div id="tatpu-tabs">
+        <!-- Vibhakti -->
+        <div class="tab-panel active" id="tp-vibhakti">
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>ভেদ</th><th>বিভক্তি</th><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th></tr></thead>
+              <tbody>
+                <tr><td rowspan="2"><span class="hl-blue">দ্বিতীয়া</span></td><td rowspan="2">২</td><td>शरणम् आगतः</td><td><strong>शरणागतः</strong></td></tr>
+                <tr><td>सुखं प्राप्तः</td><td><strong>सुखप्राप्तः</strong></td></tr>
+                <tr><td rowspan="3"><span class="hl-blue">তৃতীয়া</span></td><td rowspan="3">৩</td><td>व्यासेन कृतम्</td><td><strong>व्यासकृतम्</strong></td></tr>
+                <tr><td>शरेण विद्धः</td><td><strong>शरविद्धः</strong></td></tr>
+                <tr><td>अग्निना दग्धः</td><td><strong>अग्निदग्धः</strong></td></tr>
+                <tr><td rowspan="2"><span class="hl-blue">চতুর্থী</span></td><td rowspan="2">४</td><td>यूपाय दारु</td><td><strong>यूपदारु</strong></td></tr>
+                <tr><td>भूताय बलिः</td><td><strong>भूतबलिः</strong></td></tr>
+                <tr><td rowspan="2"><span class="hl-blue">পঞ্চমী</span></td><td rowspan="2">५</td><td>चौरात् भयम्</td><td><strong>चौरभयम्</strong></td></tr>
+                <tr><td>सिंहात् भीतः</td><td><strong>सिंहभीतः</strong></td></tr>
+                <tr><td rowspan="3"><span class="hl-blue">ষষ্ঠী</span></td><td rowspan="3">६</td><td>राज्ञः पुरुषः</td><td><strong>राजपुरुषः</strong></td></tr>
+                <tr><td>देवानां पतिः</td><td><strong>देवपतिः</strong></td></tr>
+                <tr><td>राष्ट्रस्य पतिः</td><td><strong>राष्ट्रपतिः</strong></td></tr>
+                <tr><td rowspan="2"><span class="hl-blue">সপ্তমী</span></td><td rowspan="2">७</td><td>जले मग्नः</td><td><strong>जलमग्नः</strong></td></tr>
+                <tr><td>सभायां पण्डितः</td><td><strong>सभापण्डितः</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Karmadhara -->
+        <div class="tab-panel" id="tp-karma">
+          <div class="formula-box">"समानाधिकरणः कर्मधारयः" — সমস্যমান পদদুটি একই বিভক্তিযুক্ত</div>
+          <div class="callout callout-blue" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যে সমাসে সমস্যমান দুটি পদই সমান বিভক্তিযুক্ত (সাধারণত প্রথমা বিভক্তি) হয়, তাকে কর্মধারয় সমাস বলে।
+            এতে বিশেষ্য-বিশেষণ বা উপমান-উপমেয় সম্পর্ক থাকে।
+          </div>
+
+          <div class="grid-3" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <div class="card" style="border-top:4px solid var(--blue-dark);">
+              <div class="card-title" style="color:var(--blue-dark);">① বিশেষণ-বিশেষ্য</div>
+              <div class="table-wrap"><table>
+                <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th></tr></thead>
+                <tbody>
+                  <tr><td>कृष्णः सर्पः</td><td><strong>कृष्णसर्पः</strong></td></tr>
+                  <tr><td>महान् पुरुषः</td><td><strong>महापुरुषः</strong></td></tr>
+                  <tr><td>महत् काव्यम्</td><td><strong>महाकाव्यम्</strong></td></tr>
+                  <tr><td>ज्येष्ठः पुत्रः</td><td><strong>ज्येष्ठपुत्रः</strong></td></tr>
+                  <tr><td>नीलम् उत्पलम्</td><td><strong>नीलोत्पलम्</strong></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="card" style="border-top:4px solid var(--purple);">
+              <div class="card-title" style="color:var(--purple);">② উপমান-উপমেয়</div>
+              <div class="table-wrap"><table>
+                <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th></tr></thead>
+                <tbody>
+                  <tr><td>घन इव श्यामः</td><td><strong>घनश्यामः</strong></td></tr>
+                  <tr><td>कमलम् इव मुखम्</td><td><strong>कमलमुखम्</strong></td></tr>
+                  <tr><td>चन्द्रः इव मुखम्</td><td><strong>चन्द्रमुखम्</strong></td></tr>
+                  <tr><td>नरः सिंहः इव</td><td><strong>नरसिंहः</strong></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="card" style="border-top:4px solid var(--teal);">
+              <div class="card-title" style="color:var(--teal);">③ উভয়পদ-বিশেষণ</div>
+              <div class="table-wrap"><table>
+                <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th></tr></thead>
+                <tbody>
+                  <tr><td>शीतं च उष्णम्</td><td><strong>शीतोष्णम्</strong></td></tr>
+                  <tr><td>रक्तः च पीतः</td><td><strong>रक्तपीतः</strong></td></tr>
+                  <tr><td>सुप्तः च उत्थितः</td><td><strong>सुप्तोत्थितः</strong></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dvigu -->
+        <div class="tab-panel" id="tp-dvigu">
+          <div class="formula-box">"संख्यापूर्वो द्विगुः" — পূর্বপদ সংখ্যাবাচক</div>
+          <div class="callout callout-blue" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যে কর্মধারয় সমাসে পূর্বপদ সংখ্যাবাচক হয়, তাকে দ্বিগু সমাস বলে।
+            এটি সাধারণত <strong>সমাহার</strong> (সমষ্টি বা সমূহ) অর্থে ব্যবহৃত হয়।
+            সমস্তপদটি প্রায়শই <strong>ক্লীবলিঙ্গ একবচনে</strong> হয়।
+          </div>
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>অর্থ</th><th>লিঙ্গ</th></tr></thead>
+              <tbody>
+                <tr><td>सप्तानां दिनानां समाहारः</td><td><span class="hl-blue">सप्तदिनम्</span></td><td>সাত দিনের সমাহার</td><td>ক্লীবলিঙ্গ</td></tr>
+                <tr><td>त्रयाणां लोकानां समाहारः</td><td><span class="hl-blue">त्रिलोकम्</span></td><td>তিন লোকের সমাহার</td><td>ক্লীবলিঙ্গ</td></tr>
+                <tr><td>पञ्चानां पात्राणां समाहारः</td><td><span class="hl-blue">पञ्चपात्रम्</span></td><td>পাঁচটি পাত্রের সমাহার</td><td>ক্লীবলিঙ্গ</td></tr>
+                <tr><td>चतुर्णां युगानां समाहारः</td><td><span class="hl-blue">चतुर्युगम्</span></td><td>চার যুগের সমাহার</td><td>ক্লীবলিঙ্গ</td></tr>
+                <tr><td>त्रयाणां भुवनानां समाहारः</td><td><span class="hl-blue">त्रिभुवनम्</span></td><td>তিন ভুবনের সমাহার</td><td>ক্লীবলিঙ্গ</td></tr>
+                <tr><td>त्रयाणां लोकानां समाहारः</td><td><span class="hl-blue">त्रिलोकी</span></td><td>তিন লোকের সমাহার</td><td>স্ত্রীলিঙ্গ (ঈ-কারান্ত)</td></tr>
+                <tr><td>अष्टानां अध्यायानां समाहारः</td><td><span class="hl-blue">अष्टाध्यायी</span></td><td>আট অধ্যায়ের সমাহার</td><td>স্ত্রীলিঙ্গ (ঈ-কারান্ত)</td></tr>
+                <tr><td>पञ्चानां वटानां समाहारः</td><td><span class="hl-blue">पञ्चवटी</span></td><td>পাঁচটি বটের সমাহার</td><td>স্ত্রীলিঙ্গ (ঈ-কারান্ত)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Nanj -->
+        <div class="tab-panel" id="tp-nanj">
+          <div class="formula-box">"नञ् + सुबन्तम् → नञ्समासः"</div>
+          <div class="callout callout-red" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যেখানে <strong>"न" (নঞ্)</strong> অব্যয় সুবন্ত পদের সাথে সমাস গঠন করে, তাকে নঞ্ সমাস বলে।
+            যদি উত্তরপদের অর্থ প্রধান হয়, তবে তা নঞ্ তৎপুরুষ।
+            যদি অন্য পদের অর্থ প্রধান হয়, তবে তা নঞ্ বহুব্রীহি।
+          </div>
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>প্রকার</th></tr></thead>
+              <tbody>
+                <tr><td>न धर्मः</td><td><span class="hl">अधर्मः</span></td><td><span class="badge badge-blue">নঞ্ তৎপুরুষ</span></td></tr>
+                <tr><td>न सत्यम्</td><td><span class="hl">असत्यम्</span></td><td><span class="badge badge-blue">নঞ্ তৎপুরুষ</span></td></tr>
+                <tr><td>न सुखम्</td><td><span class="hl">असुखम्</span></td><td><span class="badge badge-blue">নঞ্ তৎপুরুষ</span></td></tr>
+                <tr><td>न आदिः यस्य सः</td><td><span class="hl">अनादिः</span></td><td><span class="badge badge-red">নঞ্ বহুব্রীহি</span></td></tr>
+                <tr><td>न पुत्रः यस्य सः</td><td><span class="hl">अपुत्रः</span></td><td><span class="badge badge-red">নঞ্ বহুব্রীহি</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 5 — DVANDVA
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="dvandva">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#5C1A8B,#8E44AD);">🔗</div>
+      <div>
+        <div class="section-title">পাঠ ৫ — দ্বন্দ্ব সমাস</div>
+        <div class="section-subtitle">Dvandva Samāsa</div>
+      </div>
+    </div>
+
+    <div class="formula-box reveal" style="font-family:'Noto Sans Bengali',sans-serif;">"उभयपदार्थप्रधानः द्वन्द्वः" — বিগ্রহবাক্যে 'च' ব্যবহৃত হয়</div>
+
+    <div class="tabs reveal">
+      <div class="tab-bar" style="font-family:'Noto Sans Bengali',sans-serif;">
+        <button class="tab-btn active" onclick="switchTab('dvandva-tabs','dv-itareta',this)">① ইতরেতর দ্বন্দ্ব</button>
+        <button class="tab-btn" onclick="switchTab('dvandva-tabs','dv-samahar',this)">② সমাহার দ্বন্দ্ব</button>
+        <button class="tab-btn" onclick="switchTab('dvandva-tabs','dv-ekashesh',this)">③ একশেষ দ্বন্দ্ব</button>
+        <button class="tab-btn" onclick="switchTab('dvandva-tabs','dv-niyam',this)">বিশেষ নিয়ম</button>
+      </div>
+      <div id="dvandva-tabs">
+        <div class="tab-panel active" id="dv-itareta">
+          <div class="callout callout-purple" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যে দ্বন্দ্ব সমাসে উভয় পদের অর্থ <strong>পৃথক-পৃথক</strong> ভাবে বজায় থাকে।
+            সমস্তপদটি <strong>দ্বিবচন বা বহুবচনে</strong> হয়।
+          </div>
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>বচন</th></tr></thead>
+              <tbody>
+                <tr><td>रामः च कृष्णः च</td><td><strong>रामकृष्णौ</strong></td><td>দ্বিবচন</td></tr>
+                <tr><td>हरिः च हरः च</td><td><strong>हरिहरौ</strong></td><td>দ্বিবচন</td></tr>
+                <tr><td>पार्वती च परमेश्वरः च</td><td><strong>पार्वतीपरमेश्वरौ</strong></td><td>দ্বিবচন</td></tr>
+                <tr><td>सीता च रामः च</td><td><strong>सीतारामौ</strong></td><td>দ্বিবচন</td></tr>
+                <tr><td>राधा च कृष्णः च</td><td><strong>राधाकृष्णौ</strong></td><td>দ্বিবচন</td></tr>
+                <tr><td>धर्मः च अर्थः च कामः च मोक्षः च</td><td><strong>धर्मार्थकाममोक्षाः</strong></td><td>বহুবচন</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" id="dv-samahar">
+          <div class="callout callout-purple" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যে দ্বন্দ্ব সমাসে অনেক বস্তুর <strong>সমাহার বা সমষ্টি</strong> বোঝায়।
+            সমস্তপদটি সর্বদা <strong>ক্লীবলিঙ্গ একবচনে</strong> হয়।
+          </div>
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th></tr></thead>
+              <tbody>
+                <tr><td>पाणी च पादौ च तेषां समाहारः</td><td><strong>पाणिपादम्</strong></td></tr>
+                <tr><td>आहारः च निद्रा च भयं च तेषां समाहारः</td><td><strong>आहारनिद्राभयम्</strong></td></tr>
+                <tr><td>पुत्रः च पौत्रः च तेषां समाहारः</td><td><strong>पुत्रपौत्रम्</strong></td></tr>
+                <tr><td>यवाः च चणकाः च तेषां समाहारः</td><td><strong>यवचणकम्</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" id="dv-ekashesh">
+          <div class="callout callout-purple" style="font-family:'Noto Sans Bengali',sans-serif;">
+            <strong>সংজ্ঞা</strong>
+            যেখানে একাধিক পদের মধ্যে কেবলমাত্র <strong>একটি পদ অবশিষ্ট থাকে</strong> এবং অন্য পদগুলি লোপ পায়।
+          </div>
+          <div class="table-wrap">
+            <table style="font-family:'Noto Sans Bengali',sans-serif;">
+              <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>বিশেষত্ব</th></tr></thead>
+              <tbody>
+                <tr><td>माता च पिता च</td><td><strong>पितरौ</strong></td><td>পুংলিঙ্গ অবশিষ্ট থাকে</td></tr>
+                <tr><td>दुहिता च पुत्रः च</td><td><strong>पुत्रौ</strong></td><td>পুংলিঙ্গ অবশিষ্ট থাকে</td></tr>
+                <tr><td>हंसः च हंसी च</td><td><strong>हंसौ</strong></td><td>পুংলিঙ্গ অবশিষ্ট থাকে</td></tr>
+                <tr><td>बालकः च बालिका च</td><td><strong>बालकौ</strong></td><td>পুংলিঙ্গ অবশিষ্ট থাকে</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-panel" id="dv-niyam">
+          <div class="grid-2">
+            <div class="card" style="border-left:4px solid var(--purple); font-family:'Noto Sans Bengali',sans-serif;">
+              <div class="card-title" style="color:var(--purple);">📋 ক্রমনিয়মসমূহ</div>
+              <ul style="font-size:0.9rem;line-height:1.85;padding-left:16px;">
+                <li>হ্রস্ব-ইকারান্ত / উকারান্ত পদ <strong>পূর্বে বসে</strong> → <em>वायुसूर्यौ</em></li>
+                <li>অপেক্ষাকৃত কম অক্ষরযুক্ত পদ <strong>পূর্বে বসে</strong> → <em>रामकेशवौ</em></li>
+                <li>শ্রেষ্ঠ বা পূজনীয় পদ <strong>পূর্বে বসে</strong> → <em>मातापितरौ</em></li>
+                <li>স্বরাদি পদ <strong>পূর্বে বসে</strong> → <em>ईशकृष्णौ</em></li>
+                <li>হ্রস্বস্বরান্ত পদ <strong>পূর্বে বসে</strong> → <em>कुशकाशम्</em></li>
+              </ul>
+            </div>
+            <div class="card" style="border-left:4px solid var(--purple); font-family:'Noto Sans Bengali',sans-serif;">
+              <div class="card-title" style="color:var(--purple);">📊 ইতরেতর vs সমাহার</div>
+              <div class="table-wrap"><table>
+                <thead><tr><th>বিষয়</th><th>ইতরেতর</th><th>সমাহার</th></tr></thead>
+                <tbody>
+                  <tr><td>অর্থ</td><td>পৃথক</td><td>সমাহার (সমষ্টি)</td></tr>
+                  <tr><td>বচন</td><td>দ্বিবচন/বহুবচন</td><td>একবচন</td></tr>
+                  <tr><td>লিঙ্গ</td><td>পরিবর্তন হয়</td><td>ক্লীবলিঙ্গ</td></tr>
+                  <tr><td>উদাহরণ</td><td>सीतारामौ</td><td>पाणिपादम्</td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 6 — BAHUVRIHI
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="bahu">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#8B0000,#C0392B);">🪷</div>
+      <div>
+        <div class="section-title">পাঠ ৬ — বহুব্রীহি সমাস</div>
+        <div class="section-subtitle">Bahuvrīhi Samāsa</div>
+      </div>
+    </div>
+
+    <div class="formula-box reveal" style="font-family:'Noto Sans Bengali',sans-serif;">"अन्यपदार्थप्रधानः बहुव्रीहिः" — বিগ্রহবাক্যে 'यस्य सः' ব্যবহৃত হয়</div>
+
+    <div class="callout callout-red reveal" style="font-family:'Noto Sans Bengali',sans-serif;">
+      <strong>📌 সংজ্ঞা</strong>
+      যে সমাসে পূর্বপদ বা উত্তরপদ কারোরই অর্থ প্রধান হয় না —
+      বরং সম্পূর্ণ সমস্তপদটি <strong>অন্য কোনো তৃতীয় পদের বিশেষণ রূপে</strong> কাজ করে।
+      <br><strong>ব্যুৎপত্তি</strong> — बहवः व्रीहयः यस्य सः = बहुव्रीहिः (যাঁর প্রচুর ধান্য আছে, এমন ব্যক্তি)।
+    </div>
+
+    <div class="table-wrap reveal" style="margin-bottom:20px;">
+      <table style="font-family:'Noto Sans Bengali',sans-serif;">
+        <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>ইঙ্গিত/অর্থ</th></tr></thead>
+        <tbody>
+          <tr><td>महान्तौ बाहू यस्य सः</td><td><span class="hl">महाबाहुः</span></td><td>विष्णुः</td></tr>
+          <tr><td>दश आनानि यस्य सः</td><td><span class="hl">दशाननः</span></td><td>रावणः</td></tr>
+          <tr><td>पीतम् अम्बरम् यस्य सः</td><td><span class="hl">पीताम्बरः</span></td><td>कृष्णः</td></tr>
+          <tr><td>चत्वारि मुखानि यस्य सः</td><td><span class="hl">चतुर्मुखः</span></td><td>ब्रह्मा</td></tr>
+          <tr><td>चक्रम् पाणौ यस्य सः</td><td><span class="hl">चक्रपाणिः</span></td><td>विष्णुः</td></tr>
+          <tr><td>शूलम् पाणौ यस्य सः</td><td><span class="hl">शूलपाणिः</span></td><td>शिवः</td></tr>
+          <tr><td>लम्बम् उदरम् यस्य सः</td><td><span class="hl">लम्बोदरः</span></td><td>गणेशः</td></tr>
+          <tr><td>महान् आत्मा यस्य सः</td><td><span class="hl">महात्मा</span></td><td>श्रेष्ठः पुरुषः</td></tr>
+          <tr><td>चन्द्रः शेखरे यस्य सः</td><td><span class="hl">चन्द्रशेखरः</span></td><td>शिवः</td></tr>
+          <tr><td>कमलम् इव नेत्रे यस्य सः</td><td><span class="hl">कमलनेत्रः</span></td><td>विष्णुः</td></tr>
+          <tr><td>शुक्लम् अम्बरम् यस्याः सा</td><td><span class="hl">शुक्लाम्बरा</span></td><td>सरस्वती</td></tr>
+          <tr><td>पाषाणवत् हृदयम् यस्य सः</td><td><span class="hl">पाषाणहृदयः</span></td><td>कठोरः पुरुषः</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tatpurusha vs Bahuvrihi -->
+    <div class="card reveal" style="border-top:4px solid var(--deep-red); font-family:'Noto Sans Bengali',sans-serif;">
+      <div class="card-title">⚖️ তৎপুরুষ vs বহুব্রীহি — পার্থক্য</div>
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead><tr><th>বিষয়</th><th>তৎপুরুষ</th><th>বহুব্রীহি</th></tr></thead>
+          <tbody>
+            <tr><td>প্রধান পদ</td><td>উত্তরপদ</td><td>অন্য পদ (তৃতীয় পদ)</td></tr>
+            <tr><td>বিগ্রহের ধরন</td><td>"राज्ञः पुरुषः"</td><td>"यस्य सः"</td></tr>
+            <tr><td>উদাহরণ</td><td><strong>नीलोत्पलम्</strong> = नीलं उत्पलम्</td><td><strong>नीलोत्पलः</strong> = यस्य नीलम् उत्पलं सः</td></tr>
+            <tr><td>লিঙ্গ</td><td>উত্তরপদ অনুযায়ী</td><td>বিশেষ্য অনুযায়ী</td></tr>
+            <tr><td>সমস্তপদটি কী?</td><td>নিজেই বিশেষ্য (সংজ্ঞা)</td><td>বিশেষণ</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 7 — FLASH CARDS
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="flashcards">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#E8A900,#FF6B00);">🃏</div>
+      <div>
+        <div class="section-title">বিগ্রহ-ফ্ল্যাশ কার্ড</div>
+        <div class="section-subtitle">বিগ্রহবাক্য দেখতে প্রতিটি কার্ডে ক্লিক করুন</div>
+      </div>
+    </div>
+    <div class="callout callout-saffron reveal" style="margin-bottom:20px; font-family:'Noto Sans Bengali',sans-serif;">
+      <strong>📌 নির্দেশ</strong>
+      প্রত্যেকটি কার্ডে ক্লিক করুন — সমস্তপদটি দেখে বিগ্রহবাক্যটি নিজে ভাবার চেষ্টা করুন, তারপর কার্ডটি উলটে উত্তর মিলিয়ে নিন।
+    </div>
+    <div class="flip-grid reveal" id="flip-grid">
+      <!-- Cards inserted by JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 8 — INTERACTIVE QUIZ
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="quiz">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#FF6B00,#E8A900);">🧩</div>
+      <div>
+        <div class="section-title">অনুশীলন কুইজ</div>
+        <div class="section-subtitle">Interactive Quiz — আপনার জ্ঞান যাচাই করুন</div>
+      </div>
+    </div>
+
+    <div class="quiz-score-bar reveal">
+      <div>🏆 অগ্রগতি:</div>
+      <div class="score-track"><div class="score-fill" id="score-fill"></div></div>
+      <div class="score-label" id="score-label">0 / 8</div>
+    </div>
+
+    <div id="quiz-container" class="reveal">
+      <!-- Rendered by JS -->
+    </div>
+
+    <div style="text-align:center;margin-top:24px;" class="reveal">
+      <button class="check-btn" onclick="resetQuiz()" style="background:var(--deep-red); font-family:'Noto Sans Bengali',sans-serif;">🔄 আবার চেষ্টা করুন</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 9 — FILL IN THE BLANKS
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="fill-blanks">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1A6B6B,#27AE9A);">✍️</div>
+      <div>
+        <div class="section-title">শূন্যস্থান পূরণ</div>
+        <div class="section-subtitle">Fill in the Blanks — সমস্তপদ ও বিগ্রহবাক্য লিখুন</div>
+      </div>
+    </div>
+    <div id="fill-container" class="reveal"></div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap; font-family:'Noto Sans Bengali',sans-serif;" class="reveal">
+      <button class="check-btn" onclick="checkFills()">✅ উত্তর যাচাই করুন</button>
+      <button class="reset-btn" onclick="resetFills()">🔄 আবার শুরু করুন</button>
+    </div>
+    <div id="fill-result" style="margin-top:16px;font-weight:700;font-size:1rem;color:var(--green); font-family:'Noto Sans Bengali',sans-serif;"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 10 — ACCORDION FAQ
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="comparison">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#5C3317,#8B5E3C);">❓</div>
+      <div>
+        <div class="section-title">সাধারণ প্রশ্নসমূহ (FAQ)</div>
+        <div class="section-subtitle">সমাস সম্পর্কে সচরাচর জিজ্ঞাস্য প্রশ্ন</div>
+      </div>
+    </div>
+
+    <div id="faq-container" class="reveal"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 11 — COMPARISON TABLE
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#2C1A0E,#5C3317);">📊</div>
+      <div>
+        <div class="section-title">সমাসের তুলনামূলক আলোচনা</div>
+        <div class="section-subtitle">সমস্ত সমাসের তুলনামূলক চার্ট</div>
+      </div>
+    </div>
+    <div class="table-wrap reveal">
+      <table style="font-family:'Noto Sans Bengali',sans-serif;">
+        <thead><tr><th>সমাস</th><th>প্রধান পদ</th><th>বিগ্রহের ধরন</th><th>লিঙ্গ</th><th>উদাহরণ</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-green">অব্যয়ীভাব</span></td><td>পূর্বপদ</td><td>অব্যয় + পদ</td><td>ক্লীবলিঙ্গ (সর্বদা)</td><td>उपगङ्गम्</td></tr>
+          <tr><td><span class="badge badge-blue">তৎপুরুষ</span></td><td>উত্তরপদ</td><td>বিভক্তিযুক্ত</td><td>উত্তরপদ অনুযায়ী</td><td>राजपुरुषः</td></tr>
+          <tr><td><span class="badge badge-blue">কর্মধারয়</span></td><td>উত্তরপদ</td><td>বিশেষণ + বিশেষ্য</td><td>উত্তরপদ অনুযায়ী</td><td>कृष्णसर्पः</td></tr>
+          <tr><td><span class="badge badge-blue">দ্বিগু</span></td><td>উত্তরপদ</td><td>সংখ্যা + বিশেষ্য</td><td>ক্লীবলিঙ্গ / স্ত্রী</td><td>त्रिभुवनम्</td></tr>
+          <tr><td><span class="badge badge-purple">দ্বন্দ্ব</span></td><td>উভয় পদ</td><td>পদ + च + পদ</td><td>অন্তিম পদ অনুযায়ী</td><td>सीतारामौ</td></tr>
+          <tr><td><span class="badge badge-red">বহুব্রীহি</span></td><td>অন্য পদ</td><td>यस्य सः ইত্যাদি</td><td>বিশেষ্য অনুযায়ী</td><td>दशाननः</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 12 — MULYANKAN
+       ═══════════════════════════════════════════════════════ -->
+  <section class="section reveal" id="mulyankan">
+    <div class="section-header">
+      <div class="section-icon" style="background:linear-gradient(135deg,#8B0000,#FF6B00);">📝</div>
+      <div>
+        <div class="section-title">মূল্যায়ন — পরীক্ষার প্রশ্ন</div>
+        <div class="section-subtitle">Assessment &amp; Evaluation Questions</div>
+      </div>
+    </div>
+
+    <div class="grid-2 reveal">
+      <div class="card" style="border-top:4px solid var(--saffron); font-family:'Noto Sans Bengali',sans-serif;">
+        <div class="card-title">📋 প্রশ্ন ১ — বিগ্রহবাক্য লিখুন (২ নম্বর)</div>
+        <ol style="padding-left:18px;font-size:0.92rem;line-height:2.1; font-family:sans-serif;">
+          <li>महाबाहुः</li>
+          <li>यथाशक्ति</li>
+          <li>रामलक्ष्मणौ</li>
+          <li>अष्टाध्यायी</li>
+          <li>पाणिपादम्</li>
+        </ol>
+      </div>
+      <div class="card" style="border-top:4px solid var(--green); font-family:'Noto Sans Bengali',sans-serif;">
+        <div class="card-title">📋 প্রশ্ন ২ — সমস্তপদ গঠন করুন (২ নম্বর)</div>
+        <ol style="padding-left:18px;font-size:0.92rem;line-height:2.1; font-family:sans-serif;">
+          <li>शरेण विद्धः</li>
+          <li>सिंहः इव नरः</li>
+          <li>दश आनानि यस्य सः</li>
+          <li>माता च पिता च</li>
+          <li>सप्तानां दिनानां समाहारः</li>
+        </ol>
+      </div>
+      <div class="card" style="border-top:4px solid var(--blue-dark); font-family:'Noto Sans Bengali',sans-serif;">
+        <div class="card-title">📋 প্রশ্ন ৩ — সমাসের নাম লিখুন (১ নম্বর)</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>সমস্তপদ</th><th>সমাসের নাম</th></tr></thead>
+          <tbody style="font-family:sans-serif;">
+            <tr><td>प्रतिदिनम्</td><td>.................</td></tr>
+            <tr><td>देवपतिः</td><td>.................</td></tr>
+            <tr><td>घनश्यामः</td><td>.................</td></tr>
+            <tr><td>लम्बोदरः</td><td>.................</td></tr>
+            <tr><td>सप्तदिनम्</td><td>.................</td></tr>
+            <tr><td>पीताम्बरः</td><td>.................</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--deep-red); font-family:'Noto Sans Bengali',sans-serif;">
+        <div class="card-title">📋 প্রশ্ন ৪ — সত্য/মিথ্যা নির্ণয় করুন (১ নম্বর)</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>#</th><th>বিবৃতি</th><th>উত্তর</th></tr></thead>
+          <tbody>
+            <tr><td>১</td><td>অব্যয়ীভাবে উত্তরপদ প্রধান হয়</td><td>মিথ্যা ✗</td></tr>
+            <tr><td>২</td><td>দ্বন্দ্ব সমাসের বিগ্রহে 'চ' ব্যবহৃত হয়</td><td>সত্য ✓</td></tr>
+            <tr><td>৩</td><td>দ্বিগু সমাসের পূর্বপদ সংখ্যাবাচক হয়</td><td>সত্য ✓</td></tr>
+            <tr><td>৪</td><td>বহুব্রীহির বিগ্রহে 'যস্য সঃ' থাকে</td><td>সত্য ✓</td></tr>
+            <tr><td>৫</td><td>কর্মধারয় হল তৎপুরুষের একটি উপভেদ</td><td>সত্য ✓</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- Answer key accordion -->
+    <div class="card reveal" style="margin-top:20px; font-family:'Noto Sans Bengali',sans-serif;">
+      <div class="card-title">🔑 উত্তরপত্র (Answer Key)</div>
+      <div id="answer-key-acc"></div>
+    </div>
+
+    <div class="shloka-box reveal" style="margin-top:30px; font-family:'Noto Sans Bengali',sans-serif;">
+      <div class="shloka-label">॥ সমাপ্তি ॥</div>
+      कर्मधारयो द्विगुश्चैव, तत्पुरुषस्य भेदकौ।<br>
+      विशेषणं संख्या पूर्वे, इदमेव विशेषणम्॥<br><br>
+      <span style="font-size:0.85rem;opacity:0.8;font-family:'Noto Sans Bengali',sans-serif;">
+        "विद्या विनयेन शोभते" — এই মডিউলটির অধ্যয়নের মাধ্যমে সকলেই সমাসে পারদর্শী হয়ে উঠুক।
+      </span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="font-family:'Noto Sans Bengali',sans-serif;">
+  <span class="footer-om">ॐ</span>
+  <p><strong>সমাস — শিখন-শিক্ষণ মডিউল</strong><br>
+  সংস্কৃত ব্যাকরণ | Sanskrit Grammar Interactive Module<br>
+  <span style="opacity:0.6;font-size:0.82rem;">শ্রেণী ৮–১২ | পাণিনীয়-ব্যাকরণানুসারে</span></p>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  const btn = document.getElementById('back-top');
+  window.scrollY > 400 ? btn.classList.add('show') : btn.classList.remove('show');
+  // Nav active
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const sections = ['intro','tree-section','avyayi','tatpu','dvandva','bahu','flashcards','quiz','comparison','mulyankan'];
+  let cur = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) cur = id;
+  });
+  navBtns.forEach(b => b.classList.remove('active'));
+});
+
+/* ── SMOOTH SCROLL ── */
+function scrollTo(id) {
+  const el = document.querySelector(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── REVEAL ON SCROLL ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── TABS ── */
+function switchTab(groupId, panelId, btn) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── TRACKER ── */
+function markDone(el) { el.classList.toggle('done'); }
+
+/* ── ACCORDION ── */
+function makeAccordion(id, items) {
+  const container = document.getElementById(id);
+  if (!container) return;
+  container.innerHTML = items.map((item, i) => `
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span>${item.q}</span>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-body-inner">${item.a}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  header.closest('.main-wrapper, .card').querySelectorAll('.acc-header').forEach(h => {
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) { header.classList.add('open'); body.classList.add('open'); }
+}
+
+/* ── FAQ DATA ── */
+makeAccordion('faq-container', [
+  { q: '১. কর্মধারয় সমাস তৎপুরুষ সমাস থেকে কীভাবে আলাদা?',
+    a: 'তৎপুরুষ সমাসে উভয় পদের <strong>ভিন্ন বিভক্তি</strong> থাকে (যেমন राज्ञः पुरुषः — ষষ্ঠী)। কিন্তু কর্মধারয় সমাসে উভয় পদ <strong>সমান বিভক্তিযুক্ত (প্রথমায়)</strong> হয়। তাই কর্মধারয়কে "সমানাধিকরণ তৎপুরুষ"ও বলা হয়।' },
+  { q: '২. বহুব্রীহি সমাস তৎপুরুষ সমাস থেকে কীভাবে পৃথক?',
+    a: '<strong>তৎপুরুষ সমাসে</strong> উত্তরপদের অর্থ প্রধান — "राजपुरुषः" = राज्ञः पुरुषः (পুরুষ-ই প্রধান)।<br><strong>বহুব্রীহিতে</strong> তৃতীয় অন্য একটি পদের অর্থ প্রধান — "नीलोत्पलः" = नीलम् उत्पलम् यस्य सः = विष्णुः (বিষ্ণু-ই প্রধান, নীল বা উৎপল নয়)। বিগ্রহে "यस्य सः" এটি বিশেষত্ব।' },
+  { q: '৩. অব্যয়ীভাব সমাস সর্বদা ক্লীবলিঙ্গে কেন হয়?',
+    a: 'অব্যয়ীভাব সমাসে সমস্তপদটি <strong>অব্যয়ের মতো</strong> আচরণ করে — অর্থাৎ এর বিভক্তি পরিবর্তিত হয় না। সংস্কৃতে অব্যয়গুলো সর্বদা ক্লীবলিঙ্গ একবচনে ব্যবহৃত হয়। যেমন — "उपगङ्गम्" সকল বিভক্তিতে "उपगङ्गम्"-ই থাকে।' },
+  { q: '৪. দ্বিগু সমাস দ্বন্দ্ব সমাস থেকে কীভাবে আলাদা?',
+    a: '<strong>দ্বিগু সমাসে</strong> পূর্বপদ সংখ্যাবাচক হয় এবং সমস্তপদটি সমাহার অর্থে ক্লীবলিঙ্গে হয় — যেমন त्रिभुवनम् (তিন ভুবনের সমাহার)।<br><strong>দ্বন্দ্ব সমাসে</strong> কোনো সংখ্যাবাচক পূর্বপদ থাকে না, বরং উভয় পদ সমান প্রধান হয় — যেমন सीतारामौ (सीता च रामः च)।' },
+  { q: '৫. ইতরেতর দ্বন্দ্ব সমাহার দ্বন্দ্ব থেকে কীভাবে আলাদা?',
+    a: '<strong>ইতরেতর দ্বন্দ্বে</strong> প্রতিটি পদের অর্থ আলাদাভাবে গ্রহণ করা হয়। সমস্তপদটি দ্বিবচন বা বহুবচনে হয়। যেমন — सीतारामौ (সীতা + রাম — দুজনেই আলাদা)।<br><strong>সমাহার দ্বন্দ্বে</strong> সমস্ত পদের একটি সমষ্টি বা সমাহার বোঝায়। সমস্তপদটি ক্লীবলিঙ্গ একবচনে হয়। যেমন — पाणिपादम् (পাণি + পাদ + অন্যান্য অঙ্গও)।' },
+  { q: '৬. নঞ্ তৎপুরুষ এবং নঞ্ বহুব্রীহির পার্থক্য কী?',
+    a: '<strong>নঞ্ তৎপুরুষে</strong> উত্তরপদের অর্থ প্রধান — "अधर्मः" = न धर्मः (যার অর্থ ধর্ম নেই)। এখানে ধর্ম শব্দের অর্থই প্রধান।<br><strong>নঞ্ বহুব্রীহিতে</strong> অন্য পদের অর্থ প্রধান — "अपुत्रः" = न पुत्रः यस्य सः (পুত্রহীন পুরুষ)। এখানে তৃতীয় কোনো ব্যক্তি প্রধান।' },
+]);
+
+/* ── ANSWER KEY ── */
+makeAccordion('answer-key-acc', [
+  { q: '✅ প্রশ্ন ১ — বিগ্রহবাক্য',
+    a: '① महाबाहुः = महान्तौ बाहू यस्य सः<br>② यथाशक्ति = शक्तिम् अनतिक्रम्य<br>③ रामलक्ष्मणौ = रामः च लक्ष्मणः च<br>④ अष्टाध्यायी = अष्टानाम् अध्यायानां समाहारः<br>⑤ पाणिपादम् = पाणी च पादौ च तेषां समाहारः' },
+  { q: '✅ প্রশ্ন ২ — সমস্তপদ',
+    a: '① शरविद्धः ② नरसिंहः ③ दशाननः ④ पितरौ (एकशेषः) ⑤ सप्तदिनम्' },
+  { q: '✅ প্রশ্ন ৩ — সমাসের নাম',
+    a: 'प्रतिदिनम् → अव्ययीभावः | देवपतिः → षष्ठीतत्पुरुषः | घनश्यामः → उपमानकर्मधारयः | लम्बोदरः → बहुव्रीहिः | सप्तदिनम् → द्विगुः | पीताम्बरः → बहुव्रीहिः' },
+]);
+
+/* ── FLASH CARDS ── */
+const flipData = [
+  { word: 'उपगङ्गम्', vigraha: 'गङ्गायाः समीपम्', type: 'अव्ययीभावः' },
+  { word: 'राजपुरुषः', vigraha: 'राज्ञः पुरुषः', type: 'षष्ठीतत्पुरुषः' },
+  { word: 'दशाननः', vigraha: 'दश आनानि यस्य सः', type: 'बहुव्रीहिः' },
+  { word: 'सीतारामौ', vigraha: 'सीता च रामः च', type: 'इतरेतरद्वन्द्वः' },
+  { word: 'त्रिभुवनम्', vigraha: 'त्रयाणां भुवनानां समाहारः', type: 'द्विगुः' },
+  { word: 'महापुरुषः', vigraha: 'महान् पुरुषः', type: 'कर्मधारयः' },
+  { word: 'चक्रपाणिः', vigraha: 'चक्रम् पाणौ यस्य सः', type: 'बहुव्रीहिः' },
+  { word: 'पाणिपादम्', vigraha: 'पाणी च पादौ च तेषां समाहारः', type: 'समाहारद्वन्द्वः' },
+  { word: 'निर्विघ्नम्', vigraha: 'विघ्नानाम् अभावः', type: 'अव्ययीभावः' },
+  { word: 'अग्निदग्धः', vigraha: 'अग्निना दग्धः', type: 'तृतीयातत्पुरुषः' },
+  { word: 'चन्द्रमुखम्', vigraha: 'चन्द्रः इव मुखम्', type: 'उपमानकर्मधारयः' },
+  { word: 'पीताम्बरः', vigraha: 'पीतम् अम्बरम् यस्य सः', type: 'बहुव्रीहिः' },
+];
+
+const flipGrid = document.getElementById('flip-grid');
+flipData.forEach(d => {
+  flipGrid.innerHTML += `
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="word">${d.word}</div>
+          <div class="hint">👆 ক্লিক করুন</div>
+        </div>
+        <div class="flip-back">
+          <div class="type-tag">${d.type}</div>
+          <div class="vigraha">${d.vigraha}</div>
+        </div>
+      </div>
+    </div>`;
+});
+
+/* ── QUIZ DATA ── */
+const quizData = [
+  { q: '"राष्ट्रपतिः" इत्यस्य समासः कः?', opts: ['अव्ययीभावः', 'षष्ठीतत्पुरुषः', 'बहुव्रीहिः', 'द्वन्द्वः'], ans: 1 },
+  { q: '"उपगङ्गम्" इत्यस्य विग्रहः कः?', opts: ['गङ्गायां मग्नः', 'गङ्गायाः समीपम्', 'गङ्गां गच्छति', 'गङ्गायाः पानम्'], ans: 1 },
+  { q: '"दशाननः" इत्यस्य समासः कः?', opts: ['तत्पुरुषः', 'द्वन्द्वः', 'बहुव्रीहिः', 'कर्मधारयः'], ans: 2 },
+  { q: 'द्विगुसमासे पूर्वपदं कीदृशं भवति?', opts: ['अव्ययम्', 'संख्यावाचि', 'विशेषणम्', 'उपमानम्'], ans: 1 },
+  { q: '"सीतारामौ" इत्यस्य विग्रहः कः?', opts: ['सीतायाः रामः', 'सीता च रामः च', 'सीता इव रामः', 'सीतायाः राजः'], ans: 1 },
+  { q: '"पाणिपादम्" इत्यस्य समासः कः?', opts: ['इतरेतरद्वन्द्वः', 'बहुव्रीहिः', 'समाहारद्वन्द्वः', 'तत्पुरुषः'], ans: 2 },
+  { q: 'बहुव्रीहिसमासस्य विग्रहे किं पदं प्रयुज्यते?', opts: ['च', 'इव', 'यस्य सः', 'न'], ans: 2 },
+  { q: '"घनश्यामः" इत्यस्य समासः कः?', opts: ['द्विगुः', 'उपमानकर्मधारयः', 'षष्ठीतत्पुरुषः', 'अव्ययीभावः'], ans: 1 },
+];
+
+let quizScore = 0, quizAnswered = 0;
+
+function renderQuiz() {
+  quizScore = 0; quizAnswered = 0;
+  updateScore();
+  document.getElementById('quiz-container').innerHTML = quizData.map((q, qi) => `
+    <div class="quiz-card" id="qcard-${qi}">
+      <div class="quiz-q" style="font-family:'Noto Sans Bengali',sans-serif;">প্রশ্ন ${qi+1}: <span style="font-family:sans-serif;">${q.q}</span></div>
+      <div class="options">
+        ${q.opts.map((opt,oi) => `
+          <button class="option-btn" onclick="checkAnswer(${qi},${oi},${q.ans})">${opt}</button>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="qfb-${qi}"></div>
+    </div>
+  `).join('');
+}
+
+function checkAnswer(qi, chosen, correct) {
+  const card = document.getElementById('qcard-'+qi);
+  if (card.dataset.answered) return;
+  card.dataset.answered = '1';
+  quizAnswered++;
+  const btns = card.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+  btns[correct].classList.add('correct');
+  const fb = document.getElementById('qfb-'+qi);
+  fb.classList.add('show');
+  if (chosen === correct) {
+    quizScore++;
+    fb.classList.add('correct');
+    fb.textContent = '✅ চমৎকার! সঠিক উত্তর।';
+  } else {
+    btns[chosen].classList.add('wrong');
+    fb.classList.add('wrong');
+    fb.textContent = '❌ ভুল হয়েছে। সঠিক উত্তর: ' + quizData[qi].opts[correct];
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const pct = quizData.length ? (quizScore / quizData.length) * 100 : 0;
+  document.getElementById('score-fill').style.width = pct + '%';
+  document.getElementById('score-label').textContent = quizScore + ' / ' + quizData.length;
+}
+
+function resetQuiz() { renderQuiz(); }
+renderQuiz();
+
+/* ── FILL IN THE BLANKS ── */
+const fillData = [
+  { label: 'गङ्गायाः समीपम् → समस्तपदम्:', answer: 'उपगङ्गम्', type: 'text' },
+  { label: 'राज्ञः पुरुषः → समस्तपदम्:', answer: 'राजपुरुषः', type: 'text' },
+  { label: 'त्रयाणां लोकानां समाहारः → समस्तपदम्:', answer: 'त्रिलोकम्', type: 'text' },
+  { label: 'दश आनानि यस्य सः → समस्तपदम्:', answer: 'दशाननः', type: 'text' },
+  { label: 'सीता च रामः च → समस्तपदम्:', answer: 'सीतारामौ', type: 'text' },
+  { label: 'विघ्नानाम् अभावः → समस्तपदम्:', answer: 'निर्विघ्नम्', type: 'text' },
+  { label: 'चन्द्रः इव मुखम् → समस्तपदम्:', answer: 'चन्द्रमुखम्', type: 'text' },
+  { label: 'चक्रम् पाणौ यस्य सः → समस्तपदम्:', answer: 'चक्रपाणिः', type: 'text' },
+];
+
+function renderFills() {
+  document.getElementById('fill-container').innerHTML = fillData.map((f, i) => `
+    <div class="quiz-card" style="margin-bottom:14px;">
+      <div class="quiz-q">${f.label}</div>
+      <input class="fill-input" id="fill-${i}" type="text" placeholder="উত্তর লিখুন..."/>
+    </div>
+  `).join('');
+  document.getElementById('fill-result').textContent = '';
+}
+
+function checkFills() {
+  let correct = 0;
+  fillData.forEach((f, i) => {
+    const inp = document.getElementById('fill-'+i);
+    const val = inp.value.trim();
+    inp.classList.remove('correct','wrong');
+    if (val === f.answer) { inp.classList.add('correct'); correct++; }
+    else { inp.classList.add('wrong'); inp.placeholder = '✗ সঠিক উত্তর: ' + f.answer; }
+  });
+  const res = document.getElementById('fill-result');
+  res.textContent = `আপনার স্কোর: ${correct} / ${fillData.length} 🎉`;
+  res.style.color = correct === fillData.length ? 'var(--green)' : 'var(--saffron)';
+}
+
+function resetFills() { renderFills(); }
+renderFills();
+
+/* ── OBSERVE NEWLY ADDED ELEMENTS ── */
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}, 200);
+</script>
+</body>
+</html>
