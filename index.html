@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>সমাসঃ — শিখন-শিক্ষণ মডিউল (TLM)</title>
+  <title>সমাসঃ Teaching with Multimedia E-Content</title>
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet"/>
 
   <style>
@@ -90,11 +90,37 @@
     }
     .hero h1 {
       font-family: 'Tiro Devanagari Sanskrit', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-size: clamp(2rem, 6vw, 5rem);
       font-weight: 700;
       line-height: 1.15;
       margin-bottom: 14px;
       text-shadow: 0 3px 18px rgba(0,0,0,0.3);
+    }
+    .practicum-card {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 24px 32px;
+      margin: 24px auto;
+      max-width: 800px;
+      backdrop-filter: blur(8px);
+      text-align: left;
+      color: #fff;
+    }
+    .practicum-card-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-light);
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .practicum-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      font-size: 1.05rem;
     }
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.35rem);
@@ -156,12 +182,12 @@
       background: rgba(255,248,238,0.96);
       backdrop-filter: blur(12px);
       border-bottom: 2px solid var(--gold-light);
-      display: flex; align-items: center; gap: 6px;
+      display: flex; align-items: center; justify-content: flex-start;
       padding: 0 16px;
-      overflow-x: auto;
-      scrollbar-width: none;
       box-shadow: 0 2px 16px rgba(139,69,19,0.1);
     }
+    .hamburger { display: none; margin-left: auto; background: none; border: none; font-size: 1.6rem; color: var(--deep-red); cursor: pointer; padding: 5px; }
+    .nav-links { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .top-nav::-webkit-scrollbar { display: none; }
     .nav-logo {
       font-family: 'Tiro Devanagari Sanskrit', serif;
@@ -675,12 +701,53 @@
     footer p { font-size: 0.9rem; line-height: 1.6; }
 
     /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .hero { padding: 40px 16px 60px; }
       .main-wrapper { padding: 24px 14px 60px; }
       .card { padding: 18px 16px; }
-      table { font-size: 0.82rem; }
-      thead th, tbody td { padding: 9px 10px; }
+      .practicum-card { padding: 16px 20px; }
+      .practicum-card-title { font-size: 0.88rem; }
+      .practicum-card-grid { font-size: 0.92rem; grid-template-columns: 1fr; gap: 10px; }
+      
+      /* 1. Hamburger Nav */
+      .hamburger { display: block; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(255,248,238,0.98);
+        flex-direction: column; align-items: stretch;
+        padding: 10px 0; gap: 0;
+        box-shadow: 0 8px 20px rgba(139,69,19,0.15);
+        display: none; border-bottom: 2px solid var(--gold-light);
+      }
+      .nav-links.active { display: flex; }
+      .nav-btn { text-align: left; padding: 14px 24px; border-radius: 0; }
+      .nav-btn::after { display: none; }
+      .nav-btn.active { border-left: 4px solid var(--saffron); background: rgba(255,107,0,0.08); }
+
+      /* 2. Vertical Tree Diagram */
+      .tree-branches { flex-direction: column; gap: 24px; }
+      .tree-branch { width: 100%; }
+      .tree-branch::before, .tree-branch::after { display: none; } /* hide drawing lines if any */
+
+      /* 3. Stacked Tables */
+      .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap th, .table-wrap td, .table-wrap tr {
+        display: block; width: 100%;
+      }
+      .table-wrap thead tr { position: absolute; top: -9999px; left: -9999px; } /* hide visually */
+      .table-wrap tr { margin-bottom: 16px; border: 1px solid rgba(232,169,0,0.2); border-radius: var(--radius-sm); padding: 10px; background: #fff !important; }
+      .table-wrap td { position: relative; padding: 8px 10px 8px 45%; border-bottom: 1px solid #eee; text-align: right; }
+      .table-wrap td:last-child { border-bottom: 0; }
+      .table-wrap td::before {
+        content: attr(data-label);
+        position: absolute; left: 10px; top: 8px; width: 40%;
+        text-align: left; font-weight: 600; color: var(--text-mid);
+      }
+
+      /* 4 & 5. Larger Touch Targets & Spacing */
+      .option-btn, .tab-btn, .check-btn, .reset-btn, .acc-header { padding: 14px 18px; font-size: 1rem; }
+      .fill-input { padding: 12px 14px; }
+      .samas-card h3 { font-size: 1.4rem; }
+      p, .callout { line-height: 1.75; font-size: 1rem; }
     }
 
     /* ===================== ANIMATE ON SCROLL ===================== */
@@ -737,9 +804,9 @@
   <div class="hero-sub">Pintu Chowdhury</div>
   <div class="hero-tagline">"सम्यक् आसः इति समासः"</div>
 
-  <div class="practicum-card" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 15px 20px; margin: 20px auto; max-width: 650px; backdrop-filter: blur(8px); text-align: left; color: #fff;">
-    <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-light); font-weight: 700; margin-bottom: 8px; text-align: center;">🎓 B.Ed 4th Semester</div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 0.92rem;">
+  <div class="practicum-card">
+    <div class="practicum-card-title">🎓 B.Ed 4th Semester</div>
+    <div class="practicum-card-grid">
       <div><strong>Trainee Teacher:</strong> Pintu Chowdhury</div>
       <div><strong>College Roll No:</strong> 40</div>
       <div><strong>University Roll No:</strong> 030322-24047</div>
@@ -764,16 +831,19 @@
      ============================================================ -->
 <nav class="top-nav">
   <div class="nav-logo">समासः</div>
-  <button class="nav-btn" onclick="scrollTo('#intro')">পরিচয়</button>
-  <button class="nav-btn" onclick="scrollTo('#tree-section')">প্রকারভেদ</button>
-  <button class="nav-btn" onclick="scrollTo('#avyayi')">অব্যয়ীভাব</button>
-  <button class="nav-btn" onclick="scrollTo('#tatpu')">তৎপুরুষ</button>
-  <button class="nav-btn" onclick="scrollTo('#dvandva')">দ্বন্দ্ব</button>
-  <button class="nav-btn" onclick="scrollTo('#bahu')">বহুব্রীহি</button>
-  <button class="nav-btn" onclick="scrollTo('#flashcards')">ফ্ল্যাশ কার্ড</button>
-  <button class="nav-btn" onclick="scrollTo('#quiz')">অনুশীলন</button>
-  <button class="nav-btn" onclick="scrollTo('#comparison')">তুলনা</button>
-  <button class="nav-btn" onclick="scrollTo('#mulyankan')">মূল্যায়ন</button>
+  <button class="hamburger" id="hamburger" onclick="toggleNav()">☰</button>
+  <div class="nav-links" id="nav-links">
+    <button class="nav-btn" onclick="scrollToSection('#intro')">পরিচয়</button>
+    <button class="nav-btn" onclick="scrollToSection('#tree-section')">প্রকারভেদ</button>
+    <button class="nav-btn" onclick="scrollToSection('#avyayi')">অব্যয়ীভাব</button>
+    <button class="nav-btn" onclick="scrollToSection('#tatpu')">তৎপুরুষ</button>
+    <button class="nav-btn" onclick="scrollToSection('#dvandva')">দ্বন্দ্ব</button>
+    <button class="nav-btn" onclick="scrollToSection('#bahu')">বহুব্রীহি</button>
+    <button class="nav-btn" onclick="scrollToSection('#flashcards')">ফ্ল্যাশ কার্ড</button>
+    <button class="nav-btn" onclick="scrollToSection('#quiz')">অনুশীলন</button>
+    <button class="nav-btn" onclick="scrollToSection('#comparison')">তুলনা</button>
+    <button class="nav-btn" onclick="scrollToSection('#mulyankan')">মূল্যায়ন</button>
+  </div>
 </nav>
 
 <!-- ============================================================
@@ -962,7 +1032,7 @@
     </div>
 
     <div class="shloka-box reveal" style="margin-top:24px;">
-      <div class="shloka-label">॥ স্মরণ-শ্লোক ॥</div>
+      <div class="shloka-label">॥ স্মরণ-শ্লোক ॥</div><br>
       अव्ययीभावे पूर्वपदं, तत्पुरुषे उत्तरं स्मर।<br>
       द्वन्द्वे उभयपदं ज्ञेयं, बहुव्रीहावन्यपद् वरम्॥
       <div style="font-size:0.82rem;opacity:0.75;margin-top:10px;font-family:'Noto Sans Bengali',sans-serif;">
@@ -1003,14 +1073,14 @@
           <table style="font-family:'Noto Sans Bengali',sans-serif;">
             <thead><tr><th>অব্যয়</th><th>অর্থ</th></tr></thead>
             <tbody>
-              <tr><td><span class="hl-green">उप</span></td><td>নিকটে</td></tr>
-              <tr><td><span class="hl-green">अधि</span></td><td>উপরে / বিষয়ে</td></tr>
-              <tr><td><span class="hl-green">अनु</span></td><td>পশ্চাতে / পরে</td></tr>
-              <tr><td><span class="hl-green">प्रति</span></td><td>প্রত্যেকটি</td></tr>
-              <tr><td><span class="hl-green">यथा</span></td><td>অনুসারে / মতো</td></tr>
-              <tr><td><span class="hl-green">निर्</span></td><td>অভাবে</td></tr>
-              <tr><td><span class="hl-green">सु</span></td><td>সমৃদ্ধি / সুন্দর</td></tr>
-              <tr><td><span class="hl-green">दुर्</span></td><td>অভাব / অসুন্দর</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">उप</span></td><td data-label="অর্থ">নিকটে</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">अधि</span></td><td data-label="অর্থ">উপরে / বিষয়ে</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">अनु</span></td><td data-label="অর্থ">পশ্চাতে / পরে</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">प्रति</span></td><td data-label="অর্থ">প্রত্যেকটি</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">यथा</span></td><td data-label="অর্থ">অনুসারে / মতো</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">निर्</span></td><td data-label="অর্থ">অভাবে</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">सु</span></td><td data-label="অর্থ">সমৃদ্ধি / সুন্দর</td></tr>
+              <tr><td data-label="অব্যয়"><span class="hl-green">दुर्</span></td><td data-label="অর্থ">অভাব / অসুন্দর</td></tr>
             </tbody>
           </table>
         </div>
@@ -1023,18 +1093,18 @@
         <table style="font-family:'Noto Sans Bengali',sans-serif;">
           <thead><tr><th>বিগ্রহবাক্য (संस्कृतम्)</th><th>সমস্তপদ</th><th>অর্থ</th><th>অব্যয়</th></tr></thead>
           <tbody>
-            <tr><td>गङ्गायाः समीपम्</td><td><span class="hl-green">उपगङ्गम्</span></td><td>গঙ্গার নিকটে</td><td>उप</td></tr>
-            <tr><td>नद्याः समीपम्</td><td><span class="hl-green">उपनदम्</span></td><td>নদীর নিকটে</td><td>उप</td></tr>
-            <tr><td>नगरस्य समीपम्</td><td><span class="hl-green">उपनगरम्</span></td><td>নগরের নিকটে</td><td>उप</td></tr>
-            <tr><td>हरौ इति</td><td><span class="hl-green">अधिहरि</span></td><td>হরির বিষয়ে</td><td>अधि</td></tr>
-            <tr><td>आत्मनि इति</td><td><span class="hl-green">अध्यात्म</span></td><td>আত্মার বিষয়ে</td><td>अधि</td></tr>
-            <tr><td>दिनम् दिनम्</td><td><span class="hl-green">प्रतिदिनम्</span></td><td>প্রত্যেক দিনে</td><td>प्रति</td></tr>
-            <tr><td>गृहं गृहम्</td><td><span class="hl-green">प्रतिगृहम्</span></td><td>প্রত্যেক গৃহে</td><td>प्रति</td></tr>
-            <tr><td>शक्तिम् अनतिक्रम्य</td><td><span class="hl-green">यथाशक्ति</span></td><td>শক্তি অনুসারে</td><td>यथा</td></tr>
-            <tr><td>विघ्नानाम् अभावः</td><td><span class="hl-green">निर्विघ्नम्</span></td><td>বিঘ্নের অভাবে</td><td>निर्</td></tr>
-            <tr><td>मक्षिकाणाम् अभावः</td><td><span class="hl-green">निर्मक्षिकम्</span></td><td>মাছির অভাবে</td><td>निर्</td></tr>
-            <tr><td>भिक्षाणां समृद्धिः</td><td><span class="hl-green">सुभिक्षम्</span></td><td>ভিক্ষার প্রাচুর্য</td><td>सु</td></tr>
-            <tr><td>भिक्षाणां व्यृद्धिः</td><td><span class="hl-green">दुर्भिक्षम्</span></td><td>ভিক্ষার অভাব (দুর্ভিক্ষ)</td><td>दुर्</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">गङ्गायाः समीपम्</td><td data-label="সমস্তপদ"><span class="hl-green">उपगङ्गम्</span></td><td data-label="অর্থ">গঙ্গার নিকটে</td><td data-label="অব্যয়">उप</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">नद्याः समीपम्</td><td data-label="সমস্তপদ"><span class="hl-green">उपनदम्</span></td><td data-label="অর্থ">নদীর নিকটে</td><td data-label="অব্যয়">उप</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">नगरस्य समीपम्</td><td data-label="সমস্তপদ"><span class="hl-green">उपनगरम्</span></td><td data-label="অর্থ">নগরের নিকটে</td><td data-label="অব্যয়">उप</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">हरौ इति</td><td data-label="সমস্তপদ"><span class="hl-green">अधिहरि</span></td><td data-label="অর্থ">হরির বিষয়ে</td><td data-label="অব্যয়">अधि</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">आत्मनि इति</td><td data-label="সমস্তপদ"><span class="hl-green">अध्यात्म</span></td><td data-label="অর্থ">আত্মার বিষয়ে</td><td data-label="অব্যয়">अधि</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">दिनम् दिनम्</td><td data-label="সমস্তপদ"><span class="hl-green">प्रतिदिनम्</span></td><td data-label="অর্থ">প্রত্যেক দিনে</td><td data-label="অব্যয়">प्रति</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">गृहं गृहम्</td><td data-label="সমস্তপদ"><span class="hl-green">प्रतिगृहम्</span></td><td data-label="অর্থ">প্রত্যেক গৃহে</td><td data-label="অব্যয়">प्रति</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">शक्तिम् अनतिक्रम्य</td><td data-label="সমস্তপদ"><span class="hl-green">यथाशक्ति</span></td><td data-label="অর্থ">শক্তি অনুসারে</td><td data-label="অব্যয়">यथा</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">विघ्नानाम् अभावः</td><td data-label="সমস্তপদ"><span class="hl-green">निर्विघ्नम्</span></td><td data-label="অর্থ">বিঘ্নের অভাবে</td><td data-label="অব্যয়">निर्</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">मक्षिकाणाम् अभावः</td><td data-label="সমস্তপদ"><span class="hl-green">निर्मक्षिकम्</span></td><td data-label="অর্থ">মাছির অভাবে</td><td data-label="অব্যয়">निर्</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">भिक्षाणां समृद्धिः</td><td data-label="সমস্তপদ"><span class="hl-green">सुभिक्षम्</span></td><td data-label="অর্থ">ভিক্ষার প্রাচুর্য</td><td data-label="অব্যয়">सु</td></tr>
+            <tr><td data-label="বিগ্রহবাক্য">भिक्षाणां व्यृद्धिः</td><td data-label="সমস্তপদ"><span class="hl-green">दुर्भिक्षम्</span></td><td data-label="অর্থ">ভিক্ষার অভাব (দুর্ভিক্ষ)</td><td data-label="অব্যয়">दुर्</td></tr>
           </tbody>
         </table>
       </div>
@@ -1466,12 +1536,12 @@
       <table style="font-family:'Noto Sans Bengali',sans-serif;">
         <thead><tr><th>সমাস</th><th>প্রধান পদ</th><th>বিগ্রহের ধরন</th><th>লিঙ্গ</th><th>উদাহরণ</th></tr></thead>
         <tbody>
-          <tr><td><span class="badge badge-green">অব্যয়ীভাব</span></td><td>পূর্বপদ</td><td>অব্যয় + পদ</td><td>ক্লীবলিঙ্গ (সর্বদা)</td><td>उपगङ्गम्</td></tr>
-          <tr><td><span class="badge badge-blue">তৎপুরুষ</span></td><td>উত্তরপদ</td><td>বিভক্তিযুক্ত</td><td>উত্তরপদ অনুযায়ী</td><td>राजपुरुषः</td></tr>
-          <tr><td><span class="badge badge-blue">কর্মধারয়</span></td><td>উত্তরপদ</td><td>বিশেষণ + বিশেষ্য</td><td>উত্তরপদ অনুযায়ী</td><td>कृष्णसर्पः</td></tr>
-          <tr><td><span class="badge badge-blue">দ্বিগু</span></td><td>উত্তরপদ</td><td>সংখ্যা + বিশেষ্য</td><td>ক্লীবলিঙ্গ / স্ত্রী</td><td>त्रिभुवनम्</td></tr>
-          <tr><td><span class="badge badge-purple">দ্বন্দ্ব</span></td><td>উভয় পদ</td><td>পদ + च + পদ</td><td>অন্তিম পদ অনুযায়ী</td><td>सीतारामौ</td></tr>
-          <tr><td><span class="badge badge-red">বহুব্রীহি</span></td><td>অন্য পদ</td><td>यस्य सः ইত্যাদি</td><td>বিশেষ্য অনুযায়ী</td><td>दशाननः</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-green">অব্যয়ীভাব</span></td><td data-label="প্রধান পদ">পূর্বপদ</td><td data-label="বিগ্রহের ধরন">অব্যয় + পদ</td><td data-label="লিঙ্গ">ক্লীবলিঙ্গ (সর্বদা)</td><td data-label="উদাহরণ">उपगङ्गम्</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-blue">তৎপুরুষ</span></td><td data-label="প্রধান পদ">উত্তরপদ</td><td data-label="বিগ্রহের ধরন">বিভক্তিযুক্ত</td><td data-label="লিঙ্গ">উত্তরপদ অনুযায়ী</td><td data-label="উদাহরণ">राजपुरुषः</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-blue">কর্মধারয়</span></td><td data-label="প্রধান পদ">উত্তরপদ</td><td data-label="বিগ্রহের ধরন">বিশেষণ + বিশেষ্য</td><td data-label="লিঙ্গ">উত্তরপদ অনুযায়ী</td><td data-label="উদাহরণ">कृष्णसर्पः</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-blue">দ্বিগু</span></td><td data-label="প্রধান পদ">উত্তরপদ</td><td data-label="বিগ্রহের ধরন">সংখ্যা + বিশেষ্য</td><td data-label="লিঙ্গ">ক্লীবলিঙ্গ / স্ত্রী</td><td data-label="উদাহরণ">त्रिभुवनम्</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-purple">দ্বন্দ্ব</span></td><td data-label="প্রধান পদ">উভয় পদ</td><td data-label="বিগ্রহের ধরন">পদ + च + পদ</td><td data-label="লিঙ্গ">অন্তিম পদ অনুযায়ী</td><td data-label="উদাহরণ">सीतारामौ</td></tr>
+          <tr><td data-label="সমাস"><span class="badge badge-red">বহুব্রীহি</span></td><td data-label="প্রধান পদ">অন্য পদ</td><td data-label="বিগ্রহের ধরন">यस्य सः ইত্যাদি</td><td data-label="লিঙ্গ">বিশেষ্য অনুযায়ী</td><td data-label="উদাহরণ">दशाननः</td></tr>
         </tbody>
       </table>
     </div>
@@ -1515,12 +1585,12 @@
         <div class="table-wrap"><table>
           <thead><tr><th>সমস্তপদ</th><th>সমাসের নাম</th></tr></thead>
           <tbody style="font-family:sans-serif;">
-            <tr><td>प्रतिदिनम्</td><td>.................</td></tr>
-            <tr><td>देवपतिः</td><td>.................</td></tr>
-            <tr><td>घनश्यामः</td><td>.................</td></tr>
-            <tr><td>लम्बोदरः</td><td>.................</td></tr>
-            <tr><td>सप्तदिनम्</td><td>.................</td></tr>
-            <tr><td>पीताम्बरः</td><td>.................</td></tr>
+            <tr><td data-label="সমস্তপদ">प्रतिदिनम्</td><td data-label="সমাসের নাম">.................</td></tr>
+            <tr><td data-label="সমস্তপদ">देवपतिः</td><td data-label="সমাসের নাম">.................</td></tr>
+            <tr><td data-label="সমস্তপদ">घनश्यामः</td><td data-label="সমাসের নাম">.................</td></tr>
+            <tr><td data-label="সমস্তপদ">लम्बोदरः</td><td data-label="সমাসের নাম">.................</td></tr>
+            <tr><td data-label="সমস্তপদ">सप्तदिनम्</td><td data-label="সমাসের নাম">.................</td></tr>
+            <tr><td data-label="সমস্তপদ">पीताम्बरः</td><td data-label="সমাসের নাম">.................</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -1529,11 +1599,11 @@
         <div class="table-wrap"><table>
           <thead><tr><th>#</th><th>বিবৃতি</th><th>উত্তর</th></tr></thead>
           <tbody>
-            <tr><td>১</td><td>অব্যয়ীভাবে উত্তরপদ প্রধান হয়</td><td>মিথ্যা ✗</td></tr>
-            <tr><td>২</td><td>দ্বন্দ্ব সমাসের বিগ্রহে 'চ' ব্যবহৃত হয়</td><td>সত্য ✓</td></tr>
-            <tr><td>৩</td><td>দ্বিগু সমাসের পূর্বপদ সংখ্যাবাচক হয়</td><td>সত্য ✓</td></tr>
-            <tr><td>৪</td><td>বহুব্রীহির বিগ্রহে 'যস্য সঃ' থাকে</td><td>সত্য ✓</td></tr>
-            <tr><td>৫</td><td>কর্মধারয় হল তৎপুরুষের একটি উপভেদ</td><td>সত্য ✓</td></tr>
+            <tr><td data-label="#">১</td><td data-label="বিবৃতি">অব্যয়ীভাবে উত্তরপদ প্রধান হয়</td><td data-label="উত্তর">মিথ্যা ✗</td></tr>
+            <tr><td data-label="#">২</td><td data-label="বিবৃতি">দ্বন্দ্ব সমাসের বিগ্রহে 'চ' ব্যবহৃত হয়</td><td data-label="উত্তর">সত্য ✓</td></tr>
+            <tr><td data-label="#">৩</td><td data-label="বিবৃতি">দ্বিগু সমাসের পূর্বপদ সংখ্যাবাচক হয়</td><td data-label="উত্তর">সত্য ✓</td></tr>
+            <tr><td data-label="#">৪</td><td data-label="বিবৃতি">বহুব্রীহির বিগ্রহে 'যস্য সঃ' থাকে</td><td data-label="উত্তর">সত্য ✓</td></tr>
+            <tr><td data-label="#">৫</td><td data-label="বিবৃতি">কর্মধারয় হল তৎপুরুষের একটি উপভেদ</td><td data-label="উত্তর">সত্য ✓</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -1587,10 +1657,20 @@ window.addEventListener('scroll', () => {
   navBtns.forEach(b => b.classList.remove('active'));
 });
 
+/* ── HAMBURGER NAV ── */
+function toggleNav() {
+  document.getElementById('nav-links').classList.toggle('active');
+}
+
 /* ── SMOOTH SCROLL ── */
-function scrollTo(id) {
+function scrollToSection(id) {
   const el = document.querySelector(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Close mobile nav if open
+  const navLinks = document.getElementById('nav-links');
+  if(navLinks && navLinks.classList.contains('active')) {
+    navLinks.classList.remove('active');
+  }
 }
 
 /* ── REVEAL ON SCROLL ── */
