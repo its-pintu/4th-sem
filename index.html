@@ -724,25 +724,6 @@
       .nav-btn::after { display: none; }
       .nav-btn.active { border-left: 4px solid var(--saffron); background: rgba(255,107,0,0.08); }
 
-      /* 2. Vertical Tree Diagram */
-      .tree-branches { flex-direction: column; gap: 24px; }
-      .tree-branch { width: 100%; }
-      .tree-branch::before, .tree-branch::after { display: none; } /* hide drawing lines if any */
-
-      /* 3. Stacked Tables */
-      .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap th, .table-wrap td, .table-wrap tr {
-        display: block; width: 100%;
-      }
-      .table-wrap thead tr { position: absolute; top: -9999px; left: -9999px; } /* hide visually */
-      .table-wrap tr { margin-bottom: 16px; border: 1px solid rgba(232,169,0,0.2); border-radius: var(--radius-sm); padding: 10px; background: #fff !important; }
-      .table-wrap td { position: relative; padding: 8px 10px 8px 45%; border-bottom: 1px solid #eee; text-align: right; }
-      .table-wrap td:last-child { border-bottom: 0; }
-      .table-wrap td::before {
-        content: attr(data-label);
-        position: absolute; left: 10px; top: 8px; width: 40%;
-        text-align: left; font-weight: 600; color: var(--text-mid);
-      }
-
       /* 4 & 5. Larger Touch Targets & Spacing */
       .option-btn, .tab-btn, .check-btn, .reset-btn, .acc-header { padding: 14px 18px; font-size: 1rem; }
       .fill-input { padding: 12px 14px; }
